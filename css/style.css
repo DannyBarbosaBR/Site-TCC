@@ -161,6 +161,7 @@ p {
 body {
 	background-color: rgb(29, 0, 29);
 }
+
 /* RATIO */
 .ratio {
     position: relative;
@@ -544,11 +545,19 @@ button {
 .main_footer_social a:hover {
 	text-decoration: underline;
 }
-/* menu pequeno*/
+/* menu pequeno barra texto cima*/
 .menu_navegacao {
 	display: none;
 	text-transform: uppercase;
-	color:  rgb(5, 226, 255);
+	color:white;
+	font-family: 'Arial', sans-serif;
+	color: white;
+	text-transform: uppercase;
+	font-weight: bold;
+	border-width: 5px;
+	border-style: solid;
+	border-color:  #09f;
+	background-image: url(https://cdn.discordapp.com/attachments/1066820500208242758/1090658690635411477/icone.png?width=220&height=218);
 }
 
 
@@ -611,7 +620,7 @@ button {
 	}
 
 }
-
+/* menu parado android*/
 @media(max-width:500px) {
 	.menu_navegacao {
 		display: block;
@@ -627,7 +636,7 @@ button {
 /*Menu Mobile Fundo*/
 	.menu_navegacao:hover {
 		background-color: darkblue;
-		
+
 		
 	}
 
