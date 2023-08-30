@@ -19,12 +19,6 @@
 	-webkit-box-sizing: border-box;
 
 }
- .destaque_video {
-    float: right;
-    width: 50%;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.2);
-}
 
 h1 {
 	font-size: 2em;
@@ -178,6 +172,13 @@ body {
     top: 0;
 }
 /*HEADER*/
+
+.destaque_video {
+    float: right;
+    width: 50%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+}
 
 button {
 	background-color: #fca311;
