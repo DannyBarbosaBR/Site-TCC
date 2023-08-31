@@ -173,13 +173,6 @@ body {
 }
 /*HEADER*/
 
-.destaque_video {
-    float: right;
-    width: 50%;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.2);
-}
-
 button {
 	background-color: #fca311;
 	color: white;
@@ -262,6 +255,13 @@ button {
 	font-size: 1.9em;
 	margin-top: 20px;
 
+}
+
+.destaque_video {
+    float: right;
+    width: 50%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .destaque .tagline {
@@ -621,6 +621,7 @@ button {
 	}
 
 }
+
 /* menu parado android*/
 @media(max-width:500px) {
 	.menu_navegacao {
@@ -642,6 +643,13 @@ button {
 	}
 
 	/*HEADER*/
+
+	.destaque_video {   
+	float: center;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+}
 	.main_header {
 		font-size: 0.87em;
 	}
@@ -699,7 +707,7 @@ button {
 /* Menu Mobile Cores */
 	.main_menu a:hover {
 		background: white;
-		color: rgb(5, 226, 255);
+		color: rgb(0, 0, 0);
 			font-family: 'Arial', sans-serif;
 	}
 
