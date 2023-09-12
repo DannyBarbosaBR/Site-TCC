@@ -265,6 +265,13 @@ button {
     background: rgba(255, 255, 255, 0.2);
 }
 
+.destaque_discord {
+    float: right;
+    width: 50%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
 .destaque .tagline {
 	margin: 35px 0;
 	font-size: 0.875em;
@@ -651,6 +658,14 @@ button {
     padding: 10px;
     background: rgba(255, 255, 255, 0.2);
 }
+	
+	.destaque_discord {
+    float: right;
+    width: 50%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+}
+	
 	.main_header {
 		font-size: 0.87em;
 	}
