@@ -358,7 +358,7 @@ button {
 
 
 .contato_form {
-	float: left;
+	float: center;
 	width: 70%;
 	min-width: 300px;
 	padding-left: 5%;
