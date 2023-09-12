@@ -379,8 +379,7 @@ button {
 }
 
 .contato_form .medium {
-	float: left;
-	width: 48%;
+	float: center;
 }
 
 .contato_form .medium:first-of-type {
