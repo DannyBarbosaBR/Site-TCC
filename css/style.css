@@ -362,7 +362,6 @@ button {
 	width: 70%;
 	min-width: 300px;
 	padding-left: 5%;
-	float: left;
 }
 .contato_form label {
 	display: block;
