@@ -266,9 +266,9 @@ button {
 }
 
 .destaque_discord {
-    float: right;
-    width: 50%;
-    padding: 10px;
+    float: left;
+    width: 35%;
+    padding: 5px;
     background: rgba(255, 255, 255, 0.2);
 }
 
@@ -358,16 +358,13 @@ button {
 
 
 .contato_form {
-	float: right;
-	width: 70%;
-	min-width: 300px;
-	padding-left: 5%;
+	float: left;
 }
 
 .contato_form label {
 	display: block;
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 .contato_form span {
@@ -398,12 +395,12 @@ button {
 .contato_form .btn {
 	border: none;
 	background: white;
-	padding: 15px 25px;
+	padding: 5px 15px;
 	text-transform: uppercase;
 	font-weight: 600;
 	font-size: 0.875em;
 	float: right;
-	margin-top: 10px;
+	margin-top: 5px;
 	cursor: pointer;
 }
 
@@ -411,12 +408,6 @@ button {
 	background: white;
 }
 
-.form_load {
-	float: right;
-	margin-top: 25px;
-	margin-left: 20px;
-	display: none;
-}
 
 
 
