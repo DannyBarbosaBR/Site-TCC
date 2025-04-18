@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danny Network Apps</title>
+    <link rel="icon" type="image/png" href="https://www.spriters-resource.com/resources/sheet_icons/165/167900.png?updated=1642357885" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- LinkedIn Profile Badge -->
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <style>
+        :root[data-theme='light'] {
+            --bs-body-bg: #f5f5f5;
+            --bs-body-color: #333333;
+            --bs-title-color: #0d6efd;
+            --bs-dropdown-bg: #ffffff;
+            --bs-dropdown-color: #333333;
+            --bs-dropdown-link-color: #333333;
+            --bs-navbar-bg: #0066cc;
+            --bs-navbar-color: #ffffff;
+            --bs-navbar-brand-color: #ffffff;
+            --bs-navbar-brand-hover-color: #e6f2ff;
+            --bs-footer-bg: #0066cc;
+            --bs-footer-color: #ffffff;
+            --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            --bs-border-color: #ced4da;
+            --bs-channel-border: #0d6efd;
+            --bs-card-bg: #ffffff;
+            --bs-button-bg: #0d6efd;
+            --bs-button-hover-bg: #0b5ed7;
+            --bs-button-color: white;
+        }
+
+        :root[data-theme='dark'] {
+            --bs-body-bg: #121212;
+            --bs-body-color: rgba(255, 255, 255, 0.95);
+            --bs-title-color: rgba(255, 255, 255, 1);
+            --bs-dropdown-bg: #1e1e1e;
+            --bs-dropdown-color: #0d6efd;
+            --bs-dropdown-link-color: #0d6efd;
+            --bs-navbar-bg: #1a1a1a;
+            --bs-navbar-color: #0d6efd;
+            --bs-navbar-brand-color: #0d6efd;
+            --bs-navbar-brand-hover-color: #0b5ed7;
+            --bs-footer-bg: #1a1a1a;
+            --bs-footer-color: rgba(255, 255, 255, 0.95);
+            --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2813, 110, 253, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            --bs-border-color: rgba(100, 100, 100, 1);
+            --bs-channel-border: rgba(100, 100, 100, 1);
+            --bs-card-bg: #1e1e1e;
+            --bs-button-bg: #0d6efd;
+            --bs-button-hover-bg: #0b5ed7;
+            --bs-button-color: white;
+        }
+
+        body {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            background-color: var(--bs-navbar-bg) !important;
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+
+        .navbar-brand, .navbar-brand:hover {
+            color: var(--bs-navbar-brand-color) !important;
+        }
+
+        .nav-link {
+            color: var(--bs-navbar-color) !important;
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            color: var(--bs-navbar-brand-hover-color) !important;
+            opacity: 0.8;
+        }
+
+        .navbar-toggler {
+            color: var(--bs-navbar-color);
+            border-color: var(--bs-navbar-color);
+        }
+
+        .navbar-toggler-icon {
+            background-image: var(--bs-navbar-toggler-icon-bg);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            background-color: var(--bs-dropdown-bg);
+            color: var(--bs-dropdown-color);
+            border: 1px solid var(--bs-border-color);
+        }
+
+        .dropdown-item {
+            color: var(--bs-dropdown-link-color) !important;
+        }
+
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #0d6efd;
+            color: white !important;
+        }
+
+        /* Botões de canal */
+        .channel-button {
+            border: 2px solid var(--bs-channel-border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .channel-button:hover,
+        .channel-button.active {
+            border-color: #0d6efd;
+            background-color: #0d6efd;
+            color: white !important;
+        }
+
+        /* Iframe principal */
+        .iframe-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 1px solid var(--bs-border-color);
+            position: relative;
+            background-color: #000;
+        }
+
+        .iframe-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #0d6efd;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Controles no dropdown */
+        input[type="range"] {
+            width: 100%;
+        }
+
+        .range-label {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--bs-dropdown-color);
+        }
+
+        /* Seções */
+        .section-title {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0d6efd;
+            color: var(--bs-title-color);
+        }
+
+        .section-title i {
+            margin-right: 0.5rem;
+        }
+
+        /* Info box */
+        .info-box {
+            background-color: var(--bs-card-bg);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--bs-border-color);
+        }
+
+        .info-box h4 {
+            color: var(--bs-title-color);
+        }
+
+        .info-box p {
+            margin-bottom: 0.5rem;
+            color: var(--bs-body-color);
+        }
+
+        .info-box .site-url {
+            font-weight: bold;
+            word-break: break-all;
+            color: var(--bs-body-color);
+        }
+
+        .info-box .source-link {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .info-box .source-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Botões */
+        .dropdown-button {
+            margin-top: 10px;
+            width: 100%;
+            background-color: var(--bs-button-bg);
+            color: var(--bs-button-color);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dropdown-button:hover {
+            background-color: var(--bs-button-hover-bg);
+        }
+
+        /* Data e hora */
+        .datetime-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--bs-navbar-color);
+        }
+
+        .datetime-container i {
+            font-size: 1rem;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--bs-footer-bg);
+            color: var(--bs-footer-color);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--bs-border-color);
+        }
+
+        /* Botões de chat */
+        .chat-button {
+            margin-top: 5px;
+            width: 100%;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chat-button:hover {
+            opacity: 0.9;
+        }
+
+        .chat-button.discord {
+            background-color: #5865F2;
+        }
+
+        .chat-button.discord:hover {
+            background-color: #4752C4;
+        }
+
+        .chat-button.linkedin {
+            background-color: #0077B5;
+        }
+
+        .chat-button.linkedin:hover {
+            background-color: #005582;
+        }
+
+        .chat-button.chat-online {
+            background-color: #25D366;
+        }
+
+        .chat-button.chat-online:hover {
+            background-color: #1DA851;
+        }
+
+        .chat-button.share {
+            background-color: #3b5998;
+        }
+
+        .chat-button.share:hover {
+            background-color: #2d4373;
+        }
+
+        .chat-button.screencast {
+            background-color: #FF9500;
+        }
+
+        .chat-button.screencast:hover {
+            background-color: #E68600;
+        }
+
+        .chat-button.tournament {
+            background-color: #FFD700;
+            color: white !important;
+        }
+
+        .chat-button.tournament:hover {
+            background-color: #FFC000;
+        }
+
+        .chat-button.torrent {
+            background-color: #ff4500;
+        }
+
+        .chat-button.torrent:hover {
+            background-color: #e03e00;
+        }
+
+        .chat-button.archive {
+            background-color: #654ea3;
+        }
+
+        .chat-button.archive:hover {
+            background-color: #554389;
+        }
+
+        /* Menu de ações */
+        .actions-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Menu de navegação */
+        .navigation-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .nav-button {
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            background-color: var(--bs-button-bg);
+            border: 1px solid var(--bs-button-bg);
+            color: var(--bs-button-color);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-button:hover {
+            background-color: var(--bs-button-hover-bg);
+            color: white;
+            border-color: var(--bs-button-hover-bg);
+        }
+
+        /* Modal */
+        .modal-content {
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--bs-border-color);
+        }
+
+        /* Contato */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Título personalizado */
+        .custom-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Barra de pesquisa */
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            padding: 0.375rem 2rem 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            width: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230d6efd' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 16px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        /* Resultados da pesquisa */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--bs-card-bg);
+            border: 1px solid var(--bs-border-color);
+            border-radius: 0.25rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 0.5rem;
+            cursor: pointer;
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+
+        .search-result-item:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+        }
+
+        /* Modal de busca */
+        .search-modal-container {
+            padding: 1rem;
+        }
+
+        .search-modal-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+        }
+
+        .search-modal-results {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+
+        .search-modal-result-item {
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--bs-border-color);
+            cursor: pointer;
+        }
+
+        .search-modal-result-item:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+        }
+
+        .search-modal-result-title {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .search-modal-result-details {
+            font-size: 0.8rem;
+            color: var(--bs-body-color);
+            opacity: 0.8;
+        }
+
+        /* LinkedIn Badge */
+        .linkedin-badge-container {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Cores específicas para os serviços */
+        .youtube-music-color {
+            background-color: #FF0000;
+        }
+
+        .youtube-music-color:hover {
+            background-color: #CC0000;
+        }
+
+        .soundcloud-color {
+            background-color: #FF5500;
+        }
+
+        .soundcloud-color:hover {
+            background-color: #E04B00;
+        }
+
+        .twitch-color {
+            background-color: #9146FF;
+        }
+
+        .twitch-color:hover {
+            background-color: #7B3AC9;
+        }
+
+        .spotify-color {
+            background-color: #1DB954;
+        }
+
+        .spotify-color:hover {
+            background-color: #1AA34A;
+        }
+
+        .deezer-color {
+            background-color: #FEAA2D;
+        }
+
+        .deezer-color:hover {
+            background-color: #E6951F;
+        }
+
+        .pluto-color {
+            background-color: #FF5A5F;
+        }
+
+        .pluto-color:hover {
+            background-color: #E04B50;
+        }
+        
+        /* Estilo para o proxy de TV */
+        .proxy-container {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .proxy-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .proxy-button {
+            background-color: #0d6efd;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .proxy-button:hover {
+            background-color: #0b5ed7;
+            transform: scale(1.05);
+        }
+        
+        .proxy-warning {
+            color: white;
+            text-align: center;
+            max-width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Centralizar iframes burlados */
+        .proxy-iframe-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+        
+        /* Estilo para iframes alternativos */
+        .alternative-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Estilos para o chat online */
+        .chat-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bs-card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background-color: #0d6efd;
+            color: white;
+            border-bottom-right-radius: 0.25rem;
+        }
+
+        .message.other {
+            align-self: flex-start;
+            background-color: var(--bs-dropdown-bg);
+            color: var(--bs-body-color);
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        .message-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .chat-input-container {
+            display: flex;
+            padding: 0.75rem;
+            border-top: 1px solid var(--bs-border-color);
+            background-color: var(--bs-card-bg);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--bs-border-color);
+            border-radius: 0.5rem;
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+            outline: none;
+        }
+
+        .send-button {
+            margin-left: 0.5rem;
+            padding: 0 1rem;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .send-button:hover {
+            background-color: #0b5ed7;
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .login-button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .login-button:hover {
+            background-color: #3367D6;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sign-out-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <nav class="navbar navbar-expand-lg navbar-dark px-4">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <strong class="fs-4 custom-title">
+                <script>
+                    function getDeviceIcon() {
+                        const isAndroid = /Android/i.test(navigator.userAgent);
+                        if (isAndroid) {
+                            return '<i data-lucide="smartphone"></i> Mobile | ';
+                        } else {
+                            return '<i data-lucide="monitor"></i> PC | ';
+                        }
+                    }
+                    document.write(getDeviceIcon() + '<i data-lucide="globe"></i> Danny Network');
+                </script>
+            </strong>
+        </a>
+        
+        <!-- Barra de pesquisa -->
+        <div class="search-container">
+            <input type="text" class="search-input" id="globalSearchInput" placeholder="Pesquisar..." oninput="performGlobalSearch()" />
+            <div class="search-results" id="searchResults"></div>
+        </div>
+        
+        <div class="datetime-container ms-auto me-3 fs-5" id="datetime">
+            <i data-lucide="calendar" id="dateIcon"></i>
+            <span id="datePart"></span>
+            <i data-lucide="clock" id="timeIcon"></i>
+            <span id="timePart"></span>
+        </div>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="configDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <i data-lucide="settings"></i> Configuração
+                    </a>
+                    <ul class="dropdown-menu p-3" aria-labelledby="configDropdown">
+                        <li class="range-label">
+                            <i data-lucide="sun"></i> Brilho
+                        </li>
+                        <input type="range" min="50" max="150" value="100" id="brightnessRange" oninput="updateBrightness()" />
+                        
+                        <li class="range-label">
+                            <i data-lucide="volume-2"></i> Volume
+                        </li>
+                        <input type="range" min="0" max="100" value="100" id="volumeRange" oninput="updateVolume()" />
+
+                        <button class="dropdown-button mt-2" onclick="blockAds()">
+                            <i data-lucide="shield"></i> Bloquear Anúncios
+                        </button>
+
+                        <button class="dropdown-button" onclick="toggleTheme()">
+                            <i data-lucide="paintbrush"></i> Mudar o Tema
+                        </button>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="navigationDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <i data-lucide="compass"></i> Navegação
+                    </a>
+                    <ul class="dropdown-menu p-3" aria-labelledby="navigationDropdown">
+                        <div class="navigation-menu">
+                            <button class="nav-button" onclick="scrollToTop()">
+                                <i data-lucide="home"></i> Home
+                            </button>
+                            <button class="nav-button" onclick="scrollToSection('tvChannelsSection')">
+                                <i data-lucide="tv"></i> Canais de TV
+                            </button>
+                            <button class="nav-button" onclick="scrollToSection('radioChannelsSection')">
+                                <i data-lucide="radio"></i> Canais de Rádio
+                            </button>
+                            <button class="nav-button" onclick="scrollToSection('streamingListTitle')">
+                                <i data-lucide="play-circle"></i> Canais de Streaming
+                            </button>
+                            <button class="nav-button" onclick="scrollToSection('arcadeGamesTitle')">
+                                <i data-lucide="gamepad-2"></i> Jogos de Arcade
+                            </button>
+                        </div>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="actionsDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <i data-lucide="plus-circle"></i> Ações
+                    </a>
+                    <ul class="dropdown-menu p-3" aria-labelledby="actionsDropdown">
+                        <div class="actions-menu">
+                            <button class="chat-button chat-online" onclick="openChatOnline()">
+                                <i data-lucide="messages-square"></i> Chat Online
+                            </button>
+                            <button class="chat-button screencast" onclick="startScreenCast()">
+                                <i data-lucide="cast"></i> Transmitir Tela
+                            </button>
+                            <button class="chat-button tournament" onclick="changeChannelToTournament()">
+                                <i data-lucide="trophy"></i> Criar Torneios
+                            </button>
+                            <button class="chat-button torrent" onclick="openTorrentSearch()">
+                                <i data-lucide="anchor"></i> Buscar Torrents
+                            </button>
+                            <button class="chat-button archive" onclick="openArchiveSearch()">
+                                <i data-lucide="archive"></i> Web Archive
+                            </button>
+                            <button class="chat-button share" onclick="shareSite()">
+                                <i data-lucide="share-2"></i> Compartilhar Site
+                            </button>
+                        </div>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="infoDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <i data-lucide="info"></i> Informações
+                    </a>
+                    <ul class="dropdown-menu p-3" aria-labelledby="infoDropdown">
+                        <div class="contact-info">
+                            <button class="nav-button" data-bs-toggle="modal" data-bs-target="#aboutModal">
+                                <i data-lucide="heart"></i> Sobre nós
+                            </button>
+                            <button class="nav-button" onclick="window.location.href='mailto:contato@dannynetwork.com'">
+                                <i data-lucide="mail"></i> Contato
+                            </button>
+                            <a href="https://github.com/DannyBarbosaBR" class="nav-button text-decoration-none">
+                                <i data-lucide="github"></i> GitHub
+                            </a>
+                            <button class="chat-button discord" onclick="changeChannelToDiscord()">
+                                <i data-lucide="message-square"></i> Discord
+                            </button>
+                            <button class="chat-button linkedin" onclick="changeChannelToLinkedIn()">
+                                <i data-lucide="linkedin"></i> LinkedIn
+                            </button>
+                            <div class="linkedin-badge-container">
+                                <div class="LI-profile-badge"  
+                                     data-version="v1" 
+                                     data-size="medium" 
+                                     data-locale="pt_BR" 
+                                     data-type="horizontal" 
+                                     data-theme="light" 
+                                     data-vanity="daniel-barbosa-de-lima-4181b4266">
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mt-4">
+        <div class="iframe-container" id="mainFrameContainer">
+            <div class="iframe-loading" id="iframeLoading">
+                <div class="loading-spinner"></div>
+            </div>
+            <iframe
+                id="tvFrame"
+                src="https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1"
+                frameborder="0"
+                allowfullscreen
+                width="100%"
+                height="100%"
+                onload="hideLoadingSpinner()"
+                style="display: none;"
+            ></iframe>
+            <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                <i data-lucide="maximize"></i> Tela Cheia
+            </button>
+        </div>
+
+        <!-- Informações do Canal -->
+        <div class="info-box">
+            <h4><i data-lucide="info"></i> Informações do Canal</h4>
+            <p><strong>Site atual:</strong> <span class="site-url" id="currentSiteUrl">https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1</span></p>
+            <p><strong>Fonte:</strong> <a href="https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1" class="source-link" target="_blank" id="sourceLink">Acessar fonte diretamente</a></p>
+            <p><strong>Status:</strong> <span id="siteStatus">Carregando...</span></p>
+        </div>
+
+        <!-- Canais de TV Aberta -->
+        <h3 class="section-title" id="tvChannelsSection"><i data-lucide="tv"></i> Canais de TV Aberta</h3>
+        <div class="row row-cols-2 row-cols-md-4 g-3" id="channelList">
+            <div class="col">
+                <div class="channel-button" onclick="loadTVCultura()">
+                    <i data-lucide="tv"></i><br />TV Cultura
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="window.open('https://globoplay.globo.com/', '_blank')">
+                    <i data-lucide="tv"></i><br />Globo
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="window.open('https://assine.playplus.com/', '_blank')">
+                    <i data-lucide="tv"></i><br />Record
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="loadTVAparecida()">
+                    <i data-lucide="tv"></i><br />TV Aparecida
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://mais.sbt.com.br/')">
+                    <i data-lucide="tv"></i><br />SBT
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.band.uol.com.br/ao-vivo')">
+                    <i data-lucide="tv"></i><br />Band
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.redetv.com.br/ao-vivo')">
+                    <i data-lucide="tv"></i><br />RedeTV!
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://tvbrasil.ebc.com.br/ao-vivo')">
+                    <i data-lucide="tv"></i><br />TV Brasil
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://recordnews.r7.com/ao-vivo')">
+                    <i data-lucide="tv"></i><br />Record News
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.redevida.com.br/ao-vivo')">
+                    <i data-lucide="tv"></i><br />Rede Vida
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://jovempan.com.br/ao-vivo')">
+                    <i data-lucide="tv"></i><br />Jovem Pan
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://g1.globo.com/')">
+                    <i data-lucide="tv"></i><br />G1
+                </div>
+            </div>
+        </div>
+
+        <!-- Canais de Rádio -->
+        <h3 class="section-title" id="radioChannelsSection"><i data-lucide="radio"></i> Canais de Rádio</h3>
+        <div class="row row-cols-2 row-cols-md-4 g-3" id="radioList">
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://jovempan.com.br/aovivo')">
+                    <i data-lucide="radio"></i><br />Jovem Pan
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://aovivo.radiomixfm.com.br/')">
+                    <i data-lucide="radio"></i><br />Mix FM
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.itatiaia.com.br/aovivo')">
+                    <i data-lucide="radio"></i><br />Rádio Itatiaia
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.band.uol.com.br/bandnews-fm/ao-vivo')">
+                    <i data-lucide="radio"></i><br />BandNews FM
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://kissfm.com.br/ao-vivo/')">
+                    <i data-lucide="radio"></i><br />Kiss FM
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://novabrasilfm.com.br/ao-vivo')">
+                    <i data-lucide="radio"></i><br />Nova Brasil FM
+                </div>
+            </div>
+        </div>
+
+        <!-- Canais de Streaming -->
+        <h3 class="section-title" id="streamingListTitle"><i data-lucide="play-circle"></i> Canais de Streaming</h3>
+        <div class="row row-cols-2 row-cols-md-4 g-3" id="streamingList">
+            <div class="col">
+                <div class="channel-button" onclick="changeChannelToLofi()">
+                    <i data-lucide="radio"></i><br />Lofi Hip Hop
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannelToChill()">
+                    <i data-lucide="headphones"></i><br />Chill Zone
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="loadCazeTV()">
+                    <i data-lucide="tv"></i><br />CazéTV
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.olhosnatv.com.br/2022/02/loading-tv.html?m=1')">
+                    <i data-lucide="loader"></i><br />Loading TV
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.olhosnatv.com.br/2018/05/retro-cartoon-desenhos-classicos.html?m=1')">
+                    <i data-lucide="film"></i><br />Retro Cartoon
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="openServiceSearch('pluto')">
+                    <i data-lucide="tv-2"></i><br />Pluto TV
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="changeChannel('https://www.redecanais.la/')">
+                    <i data-lucide="tv"></i><br />Rede Canais
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="openServiceSearch('youtube-music')">
+                    <i data-lucide="music-2"></i><br />YouTube Music
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="openServiceSearch('soundcloud')">
+                    <i data-lucide="music"></i><br />SoundCloud
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="openServiceSearch('twitch')">
+                    <i data-lucide="twitch"></i><br />Twitch
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="openServiceSearch('spotify')">
+                    <i data-lucide="music"></i><br />Spotify
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="openServiceSearch('deezer')">
+                    <i data-lucide="music-4"></i><br />Deezer
+                </div>
+            </div>
+        </div>
+
+        <!-- Jogos de Arcade -->
+        <h3 class="section-title" id="arcadeGamesTitle"><i data-lucide="gamepad-2"></i> Jogos de Arcade</h3>
+        <div class="row row-cols-2 row-cols-md-4 g-3" id="arcadeGamesList">
+            <div class="col">
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/9123-marvel-vs-capcom-clash-of-super-heroes-980123-usa.html')">
+                    <i data-lucide="joystick"></i><br />Marvel vs Capcom
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/10386-the-king-of-fighters-2002-magic-plus-bootleg-bootleg.html')">
+                    <i data-lucide="joystick"></i><br />The King of Fighters 2002
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/28481-streets-of-rage-2-usa.html')">
+                    <i data-lucide="joystick"></i><br />Streets of Rage 2
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/8809-hyper-street-fighter-2%3A-the-anniversary-edition-040202-usa.html')">
+                    <i data-lucide="joystick"></i><br />Hyper Street Fighter 2
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/40808-mortal-kombat-trilogy.html')">
+                    <i data-lucide="joystick"></i><br />Mortal Kombat Trilogy
+                </div>
+            </div>
+            <div class="col">
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/43501-tekken-3-world-tet2-ver-e1.html')">
+                    <i data-lucide="joystick"></i><br />Tekken 3
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="text-center mt-5 py-3 border-top">
+        <p>Danny Network Apps &copy; 2024</p>
+    </footer>
+
+    <!-- Modal Sobre Nós -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel"><i data-lucide="heart"></i> Sobre Nós</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Este site foi desenvolvido por Danny Barbosa com a ajuda do assistente AI.</p>
+                    <p>O objetivo é fornecer uma plataforma simples e eficiente para assistir canais de TV e streaming em um só lugar.</p>
+                    <p>Esperamos que você aproveite a experiência!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de Torrents -->
+    <div class="modal fade" id="torrentSearchModal" tabindex="-1" aria-labelledby="torrentSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="torrentSearchModalLabel"><i data-lucide="anchor"></i> Buscador de Torrents</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="torrentSearchInput" placeholder="Pesquisar torrents..." />
+                    <button class="dropdown-button torrent" onclick="searchTorrents()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="torrentSearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button torrent" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de Web Archive -->
+    <div class="modal fade" id="archiveSearchModal" tabindex="-1" aria-labelledby="archiveSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="archiveSearchModalLabel"><i data-lucide="archive"></i> Buscar no Web Archive</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="archiveSearchInput" placeholder="Pesquisar sites arquivados..." />
+                    <button class="dropdown-button archive" onclick="searchArchive()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="archiveSearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button archive" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de YouTube Music -->
+    <div class="modal fade" id="youtubeMusicSearchModal" tabindex="-1" aria-labelledby="youtubeMusicSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="youtubeMusicSearchModalLabel"><i data-lucide="music-2"></i> Buscar no YouTube Music</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="youtubeMusicSearchInput" placeholder="Pesquisar músicas, artistas..." />
+                    <button class="dropdown-button youtube-music-color" onclick="searchYouTubeMusic()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="youtubeMusicSearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button youtube-music-color" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de SoundCloud -->
+    <div class="modal fade" id="soundcloudSearchModal" tabindex="-1" aria-labelledby="soundcloudSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="soundcloudSearchModalLabel"><i data-lucide="music"></i> Buscar no SoundCloud</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="soundcloudSearchInput" placeholder="Pesquisar músicas, podcasts..." />
+                    <button class="dropdown-button soundcloud-color" onclick="searchSoundCloud()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="soundcloudSearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button soundcloud-color" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de Twitch -->
+    <div class="modal fade" id="twitchSearchModal" tabindex="-1" aria-labelledby="twitchSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="twitchSearchModalLabel"><i data-lucide="twitch"></i> Buscar na Twitch</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="twitchSearchInput" placeholder="Pesquisar canais, streams..." />
+                    <button class="dropdown-button twitch-color" onclick="searchTwitch()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="twitchSearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button twitch-color" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de Spotify -->
+    <div class="modal fade" id="spotifySearchModal" tabindex="-1" aria-labelledby="spotifySearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="spotifySearchModalLabel"><i data-lucide="music"></i> Buscar no Spotify</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="spotifySearchInput" placeholder="Pesquisar músicas, artistas..." />
+                    <button class="dropdown-button spotify-color" onclick="searchSpotify()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="spotifySearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button spotify-color" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de Deezer -->
+    <div class="modal fade" id="deezerSearchModal" tabindex="-1" aria-labelledby="deezerSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deezerSearchModalLabel"><i data-lucide="music-4"></i> Buscar no Deezer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="deezerSearchInput" placeholder="Pesquisar músicas, playlists..." />
+                    <button class="dropdown-button deezer-color" onclick="searchDeezer()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="deezerSearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button deezer-color" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscador de Pluto TV -->
+    <div class="modal fade" id="plutoSearchModal" tabindex="-1" aria-labelledby="plutoSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="plutoSearchModalLabel"><i data-lucide="tv-2"></i> Buscar na Pluto TV</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body search-modal-container">
+                    <input type="text" class="search-modal-input" id="plutoSearchInput" placeholder="Pesquisar canais, programas..." />
+                    <button class="dropdown-button pluto-color" onclick="searchPluto()">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                    <div class="search-modal-results" id="plutoSearchResults">
+                        <!-- Os resultados serão exibidos aqui -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button pluto-color" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chat Online -->
+    <div class="modal fade" id="chatOnlineModal" tabindex="-1" aria-labelledby="chatOnlineModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatOnlineModalLabel"><i data-lucide="messages-square"></i> Chat Online</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" style="height: 500px;">
+                    <div class="chat-container" id="chatContainer">
+                        <!-- O conteúdo do chat será carregado aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDz4J6Q1Z1Q1Z1Q1Z1Q1Z1Q1Z1Q1Z1Q1Z1",
+            authDomain: "danny-network-chat.firebaseapp.com",
+            databaseURL: "https://danny-network-chat-default-rtdb.firebaseio.com",
+            projectId: "danny-network-chat",
+            storageBucket: "danny-network-chat.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abcdef1234567890"
+        };
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        let currentChannelUrl = "https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1";
+        let currentEmbedType = "youtube";
+        let currentUser = null;
+        
+        // Mostrar spinner de carregamento
+        function showLoadingSpinner() {
+            document.getElementById('iframeLoading').style.display = 'flex';
+            document.getElementById('tvFrame').style.display = 'none';
+            document.getElementById('siteStatus').textContent = 'Carregando...';
+        }
+
+        // Esconder spinner de carregamento
+        function hideLoadingSpinner() {
+            document.getElementById('iframeLoading').style.display = 'none';
+            document.getElementById('tvFrame').style.display = 'block';
+            document.getElementById('siteStatus').textContent = 'Carregado com sucesso';
+        }
+
+        // Função para carregar a TV Cultura usando um proxy alternativo
+        function loadTVCultura() {
+            showLoadingSpinner();
+            currentChannelUrl = "https://cultura.uol.com.br/aovivo/";
+            currentEmbedType = "proxy";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="proxy-overlay" id="proxyOverlay">
+                    <button class="proxy-button" onclick="loadTVCulturaDirect()">
+                        <i data-lucide="tv"></i> Carregar Canal
+                    </button>
+                    <div class="proxy-warning">
+                        Clique no botão acima para carregar o conteúdo da TV Cultura
+                    </div>
+                </div>
+                <iframe
+                    id="tvFrame"
+                    src="about:blank"
+                    frameborder="0"
+                    allowfullscreen
+                    width="100%"
+                    height="100%"
+                    style="display: none;"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+            if (event && event.currentTarget) {
+                updateActiveButton(event.currentTarget);
+            }
+            lucide.createIcons();
+        }
+
+        // Função para tentar carregar a TV Cultura diretamente
+        function loadTVCulturaDirect() {
+            document.getElementById('proxyOverlay').style.display = 'none';
+            document.getElementById('tvFrame').style.display = 'block';
+            
+            // Usando um iframe alternativo com referrerpolicy e sandbox
+            document.getElementById('tvFrame').src = currentChannelUrl;
+            document.getElementById('tvFrame').onload = hideLoadingSpinner;
+            
+            // Adicionando atributos para tentar burlar restrições
+            document.getElementById('tvFrame').setAttribute('referrerpolicy', 'no-referrer');
+            document.getElementById('tvFrame').setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+        }
+
+        // Função para carregar a TV Aparecida
+        function loadTVAparecida() {
+            showLoadingSpinner();
+            currentChannelUrl = "https://www.a12.com/tvaparecida/ao-vivo";
+            currentEmbedType = "proxy";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="proxy-overlay" id="proxyOverlay">
+                    <button class="proxy-button" onclick="loadTVAparecidaDirect()">
+                        <i data-lucide="tv"></i> Carregar Canal
+                    </button>
+                    <div class="proxy-warning">
+                        Clique no botão acima para carregar o conteúdo da TV Aparecida
+                    </div>
+                </div>
+                <iframe
+                    id="tvFrame"
+                    src="about:blank"
+                    frameborder="0"
+                    allowfullscreen
+                    width="100%"
+                    height="100%"
+                    style="display: none;"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+            if (event && event.currentTarget) {
+                updateActiveButton(event.currentTarget);
+            }
+            lucide.createIcons();
+        }
+
+        function loadTVAparecidaDirect() {
+            document.getElementById('proxyOverlay').style.display = 'none';
+            document.getElementById('tvFrame').style.display = 'block';
+            
+            // Usando um iframe alternativo com referrerpolicy e sandbox
+            document.getElementById('tvFrame').src = currentChannelUrl;
+            document.getElementById('tvFrame').onload = hideLoadingSpinner;
+            
+            // Adicionando atributos para tentar burlar restrições
+            document.getElementById('tvFrame').setAttribute('referrerpolicy', 'no-referrer');
+            document.getElementById('tvFrame').setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+        }
+
+        // Função para carregar CazéTV
+        function loadCazeTV() {
+            showLoadingSpinner();
+            currentChannelUrl = "https://www.cazetv.com.br/";
+            currentEmbedType = "proxy";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <div class="proxy-overlay" id="proxyOverlay">
+                    <button class="proxy-button" onclick="loadCazeTVDirect()">
+                        <i data-lucide="tv"></i> Carregar Canal
+                    </button>
+                    <div class="proxy-warning">
+                        Clique no botão acima para carregar o conteúdo da CazéTV
+                    </div>
+                </div>
+                <iframe
+                    id="tvFrame"
+                    src="about:blank"
+                    frameborder="0"
+                    allowfullscreen
+                    width="100%"
+                    height="100%"
+                    style="display: none;"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+            if (event && event.currentTarget) {
+                updateActiveButton(event.currentTarget);
+            }
+            lucide.createIcons();
+        }
+
+        function loadCazeTVDirect() {
+            document.getElementById('proxyOverlay').style.display = 'none';
+            document.getElementById('tvFrame').style.display = 'block';
+            
+            // Usando um iframe alternativo com referrerpolicy e sandbox
+            document.getElementById('tvFrame').src = currentChannelUrl;
+            document.getElementById('tvFrame').onload = hideLoadingSpinner;
+            
+            // Adicionando atributos para tentar burlar restrições
+            document.getElementById('tvFrame').setAttribute('referrerpolicy', 'no-referrer');
+            document.getElementById('tvFrame').setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+        }
+
+        function changeChannel(url) {
+            showLoadingSpinner();
+            currentChannelUrl = url;
+            currentEmbedType = "regular";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <iframe
+                    id="tvFrame"
+                    src="${url}"
+                    frameborder="0"
+                    allowfullscreen
+                    width="100%"
+                    height="100%"
+                    onload="hideLoadingSpinner()"
+                    style="display: none;"
+                    referrerpolicy="no-referrer"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(url);
+            if (event && event.currentTarget) {
+                updateActiveButton(event.currentTarget);
+            }
+        }
+
+        // Função para carregar jogos de arcade
+        function loadArcadeGame(embedUrl) {
+            showLoadingSpinner();
+            currentEmbedType = "arcade";
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <iframe
+                    id="arcadeFrame"
+                    src="${embedUrl}"
+                    frameborder="0"
+                    allowfullscreen
+                    width="100%"
+                    height="100%"
+                    style="background-color: #000; display: none;"
+                    onload="hideLoadingSpinner()"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreenArcade()">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(embedUrl);
+            if (event && event.currentTarget) {
+                updateActiveButton(event.currentTarget);
+            }
+        }
+
+        // Função específica para tela cheia dos jogos de arcade
+        function toggleFullscreenArcade() {
+            const element = document.getElementById("arcadeFrame");
+            if (!document.fullscreenElement) {
+                if (element.requestFullscreen) {
+                    element.requestFullscreen().catch(err => {
+                        console.error(`Erro ao tentar entrar em tela cheia: ${err.message}`);
+                    });
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        function changeChannelToLofi() {
+            showLoadingSpinner();
+            currentEmbedType = "lofi";
+            currentChannelUrl = "https://www.youtube.com/live/jfKfPfyJRdk";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <iframe 
+                    id="tvFrame"
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/jfKfPfyJRdk?si=EvEMyS9JWIy4ntRj" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen
+                    onload="hideLoadingSpinner()"
+                    style="display: none;"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+            if (event && event.currentTarget) {
+                updateActiveButton(event.currentTarget);
+            }
+        }
+
+        function changeChannelToChill() {
+            showLoadingSpinner();
+            currentEmbedType = "chill";
+            currentChannelUrl = "https://www.youtube.com/watch?v=sgEJ4sOwboM";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <iframe 
+                    id="tvFrame"
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/sgEJ4sOwboM?si=nQTu3u-UCB78BJn2" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen
+                    onload="hideLoadingSpinner()"
+                    style="display: none;"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+            if (event && event.currentTarget) {
+                updateActiveButton(event.currentTarget);
+            }
+        }
+
+        function changeChannelToDiscord() {
+            showLoadingSpinner();
+            currentEmbedType = "discord";
+            currentChannelUrl = "https://discord.com/widget?id=1065813783437643837";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <iframe 
+                    id="tvFrame"
+                    src="https://discord.com/widget?id=1065813783437643837&theme=${document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'}" 
+                    width="100%" 
+                    height="100%"
+                    allowtransparency="true" 
+                    frameborder="0" 
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                    onload="hideLoadingSpinner()"
+                    style="display: none;"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+        }
+
+        function changeChannelToLinkedIn() {
+            showLoadingSpinner();
+            currentEmbedType = "linkedin";
+            currentChannelUrl = "https://www.linkedin.com/in/daniel-barbosa-de-lima-4181b4266/";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <iframe 
+                    id="tvFrame"
+                    src="https://www.linkedin.com/embed/feed/update/urn:li:share:1234567890" 
+                    width="100%" 
+                    height="100%"
+                    frameborder="0"
+                    allowfullscreen
+                    onload="hideLoadingSpinner()"
+                    style="display: none;"
+                    referrerpolicy="no-referrer"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+        }
+
+        function changeChannelToTournament() {
+            showLoadingSpinner();
+            currentEmbedType = "tournament";
+            currentChannelUrl = "https://challonge.com/";
+            
+            const container = document.getElementById("mainFrameContainer");
+            container.innerHTML = `
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="loading-spinner"></div>
+                </div>
+                <iframe 
+                    id="tvFrame"
+                    src="https://challonge.com/" 
+                    width="100%" 
+                    height="100%"
+                    frameborder="0"
+                    allowfullscreen
+                    onload="hideLoadingSpinner()"
+                    style="display: none;"
+                    referrerpolicy="no-referrer"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                ></iframe>
+                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
+                    <i data-lucide="maximize"></i> Tela Cheia
+                </button>
+            `;
+            
+            updateChannelInfo(currentChannelUrl);
+        }
+
+        // Função para abrir o chat online
+        function openChatOnline() {
+            const modal = new bootstrap.Modal(document.getElementById('chatOnlineModal'));
+            modal.show();
+            
+            // Carrega a interface do chat
+            loadChatInterface();
+        }
+
+        // Função para carregar a interface do chat
+        function loadChatInterface() {
+            const chatContainer = document.getElementById('chatContainer');
+            
+            // Verifica se o usuário está logado
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    currentUser = user;
+                    renderChatUI(user);
+                    loadChatMessages();
+                } else {
+                    renderLoginUI();
+                }
+            });
+        }
+
+        // Função para renderizar a UI de login
+        function renderLoginUI() {
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.innerHTML = `
+                <div class="login-container">
+                    <h5><i data-lucide="messages-square"></i> Chat Online</h5>
+                    <p>Faça login com sua conta do Google para participar do chat</p>
+                    <button class="login-button" onclick="signInWithGoogle()">
+                        <i data-lucide="log-in"></i> Entrar com Google
+                    </button>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // Função para renderizar a UI do chat
+        function renderChatUI(user) {
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.innerHTML = `
+                <div class="chat-header">
+                    <div class="user-info">
+                        <img src="${user.photoURL}" alt="${user.displayName}" class="user-avatar" />
+                        <span>${user.displayName}</span>
+                    </div>
+                    <button class="sign-out-button" onclick="signOut()">
+                        <i data-lucide="log-out"></i> Sair
+                    </button>
+                </div>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="messageInput" placeholder="Digite sua mensagem..." />
+                    <button class="send-button" onclick="sendMessage()">
+                        <i data-lucide="send"></i>
+                    </button>
+                </div>
+            `;
+            lucide.createIcons();
+            
+            // Adiciona evento para enviar mensagem ao pressionar Enter
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        // Função para carregar mensagens do chat
+        function loadChatMessages() {
+            const messagesRef = database.ref('messages').limitToLast(50);
+            const chatMessages = document.getElementById('chatMessages');
+            
+            messagesRef.on('child_added', snapshot => {
+                const message = snapshot.val();
+                displayMessage(message);
+                
+                // Rola para a última mensagem
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+
+        // Função para exibir uma mensagem no chat
+        function displayMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const isCurrentUser = message.userId === currentUser.uid;
+            
+            const messageTime = new Date(message.timestamp);
+            const timeStr = messageTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${isCurrentUser ? 'user' : 'other'}`;
+            messageElement.innerHTML = `
+                <div class="message-info">
+                    ${!isCurrentUser ? `<img src="${message.photoURL}" alt="${message.name}" class="user-avatar" />` : ''}
+                    <span class="user-name">${isCurrentUser ? 'Você' : message.name}</span>
+                    <span class="message-time">${timeStr}</span>
+                </div>
+                <div>${message.text}</div>
+            `;
+            
+            chatMessages.appendChild(messageElement);
+        }
+
+        // Função para enviar mensagem
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (text && currentUser) {
+                const message = {
+                    text: text,
+                    name: currentUser.displayName,
+                    userId: currentUser.uid,
+                    photoURL: currentUser.photoURL,
+                    timestamp: Date.now()
+                };
+                
+                // Salva a mensagem no Firebase
+                database.ref('messages').push(message);
+                
+                // Limpa o campo de entrada
+                input.value = '';
+            }
+        }
+
+        // Função para login com Google
+        function signInWithGoogle() {
+            auth.signInWithPopup(provider)
+                .then(result => {
+                    currentUser = result.user;
+                    renderChatUI(currentUser);
+                    loadChatMessages();
+                })
+                .catch(error => {
+                    console.error('Erro no login:', error);
+                    alert('Erro ao fazer login. Por favor, tente novamente.');
+                });
+        }
+
+        // Função para logout
+        function signOut() {
+            auth.signOut()
+                .then(() => {
+                    currentUser = null;
+                    renderLoginUI();
+                })
+                .catch(error => {
+                    console.error('Erro no logout:', error);
+                });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function updateChannelInfo(url) {
+            document.getElementById("currentSiteUrl").textContent = url;
+            document.getElementById("sourceLink").href = url;
+            document.getElementById("sourceLink").textContent = "Acessar fonte diretamente";
+        }
+
+        function updateActiveButton(button) {
+            document.querySelectorAll('.channel-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (button) button.classList.add('active');
+        }
+
+        function toggleFullscreen(elementId) {
+            const element = document.getElementById(elementId);
+            if (!document.fullscreenElement) {
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString("pt-BR");
+            const timeStr = now.toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' });
+            
+            document.getElementById("datePart").textContent = dateStr;
+            document.getElementById("timePart").textContent = timeStr;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute("data-theme") || "light";
+            const newTheme = current === "dark" ? "light" : "dark";
+            html.setAttribute("data-theme", newTheme);
+            
+            if (currentEmbedType === "discord" || currentEmbedType === "linkedin") {
+                if (currentEmbedType === "discord") {
+                    changeChannelToDiscord();
+                } else {
+                    changeChannelToLinkedIn();
+                }
+            }
+        }
+
+        function updateBrightness() {
+            const value = document.getElementById("brightnessRange").value;
+            document.body.style.filter = `brightness(${value}%)`;
+        }
+
+        function updateVolume() {
+            const value = document.getElementById("volumeRange").value;
+            const iframe = document.getElementById("tvFrame");
+            if (iframe) {
+                iframe.contentWindow.postMessage({ volume: value }, "*");
+            }
+        }
+
+        function shareSite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: "Danny Network - Entretenimento Completo",
+                    text: "Assista TV digital, rádios ao vivo, streaming e jogue clássicos retrô em um só lugar! Diversão garantida com canais de TV, rádio, músicas relaxantes e jogos de arcade.",
+                    url: window.location.href,
+                });
+            } else {
+                alert("O compartilhamento não é suportado neste navegador.");
+            }
+        }
+
+        function startScreenCast() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+                alert("Use a função de transmissão de tela do seu navegador (Edge, Chrome, etc.)");
+            } else {
+                alert("Transmissão de tela não é suportada neste navegador.");
+            }
+        }
+
+        function blockAds() {
+            const isChrome = /Chrome/.test(navigator.userAgent);
+            const isFirefox = /Firefox/.test(navigator.userAgent);
+            
+            if (isChrome) {
+                window.open("https://chrome.google.com/webstore/detail/adblock-%E2%80%94-best-ad-blocker/gighmmpiobklfepjocnamgkkbiglidom", "_blank");
+            } else if (isFirefox) {
+                window.open("https://addons.mozilla.org/pt-BR/firefox/addon/adblock-plus/", "_blank");
+            } else {
+                window.open("https://adblockplus.org/", "_blank");
+            }
+        }
+
+        // Função para abrir o buscador de torrents
+        function openTorrentSearch() {
+            const modal = new bootstrap.Modal(document.getElementById('torrentSearchModal'));
+            modal.show();
+        }
+
+        // Função para abrir o buscador do Web Archive
+        function openArchiveSearch() {
+            const modal = new bootstrap.Modal(document.getElementById('archiveSearchModal'));
+            modal.show();
+        }
+
+        // Função para abrir o buscador de serviços
+        function openServiceSearch(service) {
+            let modalId;
+            switch(service) {
+                case 'youtube-music':
+                    modalId = 'youtubeMusicSearchModal';
+                    break;
+                case 'soundcloud':
+                    modalId = 'soundcloudSearchModal';
+                    break;
+                case 'twitch':
+                    modalId = 'twitchSearchModal';
+                    break;
+                case 'spotify':
+                    modalId = 'spotifySearchModal';
+                    break;
+                case 'deezer':
+                    modalId = 'deezerSearchModal';
+                    break;
+                case 'pluto':
+                    modalId = 'plutoSearchModal';
+                    break;
+                default:
+                    return;
+            }
+            const modal = new bootstrap.Modal(document.getElementById(modalId));
+            modal.show();
+        }
+
+        // Função para buscar torrents
+        function searchTorrents() {
+            const query = document.getElementById('torrentSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('torrentSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando torrents... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `[BR] ${query} - Filme Completo HD 1080p Dublado`,
+                        size: "1.5 GB",
+                        seeds: 452,
+                        leechers: 32,
+                        link: "https://thepiratebay.org/description.php?id=12345678"
+                    },
+                    {
+                        name: `[PT-BR] ${query} - Temporada Completa 720p`,
+                        size: "8.2 GB",
+                        seeds: 321,
+                        leechers: 45,
+                        link: "https://thepiratebay.org/description.php?id=87654321"
+                    },
+                    {
+                        name: `${query} - Álbum Completo [MP3 320kbps]`,
+                        size: "120 MB",
+                        seeds: 87,
+                        leechers: 12,
+                        link: "https://thepiratebay.org/description.php?id=19283746"
+                    }
+                ];
+                
+                displaySearchResults(mockResults, 'torrentSearchResults');
+            }, 1500);
+        }
+
+        // Função para buscar no Web Archive
+        function searchArchive() {
+            const query = document.getElementById('archiveSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('archiveSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando no Web Archive... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `${query} - Site Arquivado (2023)`,
+                        date: "15/03/2023",
+                        link: `https://web.archive.org/web/20230315000000/${query}`
+                    },
+                    {
+                        name: `${query} - Site Arquivado (2022)`,
+                        date: "10/07/2022",
+                        link: `https://web.archive.org/web/20220710000000/${query}`
+                    },
+                    {
+                        name: `${query} - Site Arquivado (2021)`,
+                        date: "05/12/2021",
+                        link: `https://web.archive.org/web/20211205000000/${query}`
+                    }
+                ];
+                
+                displayArchiveResults(mockResults);
+            }, 1500);
+        }
+
+        // Função para exibir resultados do Web Archive
+        function displayArchiveResults(results) {
+            const resultsContainer = document.getElementById('archiveSearchResults');
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-modal-result-item">Nenhum resultado encontrado no Web Archive. Tente outros termos de busca.</div>';
+                return;
+            }
+            
+            let html = '';
+            results.forEach(result => {
+                html += `
+                    <div class="search-modal-result-item" onclick="window.open('${result.link}', '_blank')">
+                        <div class="search-modal-result-title">${result.name}</div>
+                        <div class="search-modal-result-details">
+                            <span><i data-lucide="calendar"></i> ${result.date}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Função para buscar no YouTube Music
+        function searchYouTubeMusic() {
+            const query = document.getElementById('youtubeMusicSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('youtubeMusicSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando no YouTube Music... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `${query} - Música Oficial`,
+                        artist: "Artista Principal",
+                        duration: "3:45",
+                        link: `https://music.youtube.com/search?q=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Playlist Completa`,
+                        artist: "Vários Artistas",
+                        duration: "1h 23m",
+                        link: `https://music.youtube.com/search?q=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Álbum Completo`,
+                        artist: "Artista Principal",
+                        duration: "45:12",
+                        link: `https://music.youtube.com/search?q=${encodeURIComponent(query)}`
+                    }
+                ];
+                
+                displayServiceResults(mockResults, 'youtubeMusicSearchResults', 'YouTube Music');
+            }, 1500);
+        }
+
+        // Função para buscar no SoundCloud
+        function searchSoundCloud() {
+            const query = document.getElementById('soundcloudSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('soundcloudSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando no SoundCloud... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `${query} - Track by Artist`,
+                        artist: "Artist Name",
+                        duration: "4:12",
+                        link: `https://soundcloud.com/search?q=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Playlist`,
+                        artist: "Various Artists",
+                        duration: "1h 15m",
+                        link: `https://soundcloud.com/search?q=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Podcast Episode`,
+                        artist: "Podcast Host",
+                        duration: "32:45",
+                        link: `https://soundcloud.com/search?q=${encodeURIComponent(query)}`
+                    }
+                ];
+                
+                displayServiceResults(mockResults, 'soundcloudSearchResults', 'SoundCloud');
+            }, 1500);
+        }
+
+        // Função para buscar na Twitch
+        function searchTwitch() {
+            const query = document.getElementById('twitchSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('twitchSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando na Twitch... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `${query} - Live Stream`,
+                        streamer: "StreamerName",
+                        viewers: "1.2K",
+                        link: `https://www.twitch.tv/search?term=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Channel`,
+                        streamer: "ChannelName",
+                        viewers: "3.4K",
+                        link: `https://www.twitch.tv/search?term=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - VOD`,
+                        streamer: "StreamerName",
+                        duration: "2h 15m",
+                        link: `https://www.twitch.tv/search?term=${encodeURIComponent(query)}`
+                    }
+                ];
+                
+                displayServiceResults(mockResults, 'twitchSearchResults', 'Twitch');
+            }, 1500);
+        }
+
+        // Função para buscar no Spotify
+        function searchSpotify() {
+            const query = document.getElementById('spotifySearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('spotifySearchResults');
+            resultsContainer.innerHTML = '<p>Buscando no Spotify... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `${query} - Música`,
+                        artist: "Artista",
+                        duration: "3:45",
+                        link: `https://open.spotify.com/search/${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Playlist`,
+                        artist: "Vários Artistas",
+                        duration: "1h 15m",
+                        link: `https://open.spotify.com/search/${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Álbum`,
+                        artist: "Artista",
+                        duration: "45:12",
+                        link: `https://open.spotify.com/search/${encodeURIComponent(query)}`
+                    }
+                ];
+                
+                displayServiceResults(mockResults, 'spotifySearchResults', 'Spotify');
+            }, 1500);
+        }
+
+        // Função para buscar no Deezer
+        function searchDeezer() {
+            const query = document.getElementById('deezerSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('deezerSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando no Deezer... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `${query} - Música`,
+                        artist: "Artista",
+                        duration: "3:45",
+                        link: `https://www.deezer.com/search/${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Playlist`,
+                        artist: "Vários Artistas",
+                        duration: "1h 15m",
+                        link: `https://www.deezer.com/search/${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Álbum`,
+                        artist: "Artista",
+                        duration: "45:12",
+                        link: `https://www.deezer.com/search/${encodeURIComponent(query)}`
+                    }
+                ];
+                
+                displayServiceResults(mockResults, 'deezerSearchResults', 'Deezer');
+            }, 1500);
+        }
+
+        // Função para buscar na Pluto TV
+        function searchPluto() {
+            const query = document.getElementById('plutoSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('plutoSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando na Pluto TV... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Simulação de busca
+            setTimeout(() => {
+                const mockResults = [
+                    {
+                        name: `${query} - Canal`,
+                        category: "Entretenimento",
+                        link: `https://pluto.tv/pt/search?q=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Programa`,
+                        category: "Séries",
+                        link: `https://pluto.tv/pt/search?q=${encodeURIComponent(query)}`
+                    },
+                    {
+                        name: `${query} - Filme`,
+                        category: "Filmes",
+                        link: `https://pluto.tv/pt/search?q=${encodeURIComponent(query)}`
+                    }
+                ];
+                
+                displayServiceResults(mockResults, 'plutoSearchResults', 'Pluto TV');
+            }, 1500);
+        }
+
+        // Função para exibir resultados de serviços
+        function displayServiceResults(results, containerId, serviceName) {
+            const resultsContainer = document.getElementById(containerId);
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `<div class="search-modal-result-item">Nenhum resultado encontrado no ${serviceName}. Tente outros termos de busca.</div>`;
+                return;
+            }
+            
+            let html = '';
+            results.forEach(result => {
+                let details = '';
+                if (serviceName === 'YouTube Music' || serviceName === 'SoundCloud' || serviceName === 'Spotify' || serviceName === 'Deezer') {
+                    details = `<span><i data-lucide="user"></i> ${result.artist}</span> | <span><i data-lucide="clock"></i> ${result.duration}</span>`;
+                } else if (serviceName === 'Twitch') {
+                    details = `<span><i data-lucide="user"></i> ${result.streamer}</span> | <span><i data-lucide="eye"></i> ${result.viewers || result.duration}</span>`;
+                } else if (serviceName === 'Pluto TV') {
+                    details = `<span><i data-lucide="list"></i> ${result.category}</span>`;
+                }
+                
+                html += `
+                    <div class="search-modal-result-item" onclick="window.open('${result.link}', '_blank')">
+                        <div class="search-modal-result-title">${result.name}</div>
+                        <div class="search-modal-result-details">
+                            ${details}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Função para exibir resultados de busca
+        function displaySearchResults(results, containerId) {
+            const resultsContainer = document.getElementById(containerId);
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-modal-result-item">Nenhum resultado encontrado. Tente outros termos de busca.</div>';
+                return;
+            }
+            
+            let html = '';
+            results.forEach(result => {
+                html += `
+                    <div class="search-modal-result-item" onclick="window.open('${result.link}', '_blank')">
+                        <div class="search-modal-result-title">${result.name}</div>
+                        <div class="search-modal-result-details">
+                            <span><i data-lucide="hard-drive"></i> ${result.size}</span> | 
+                            <span><i data-lucide="arrow-up"></i> ${result.seeds}</span> | 
+                            <span><i data-lucide="arrow-down"></i> ${result.leechers}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Banco de dados de pesquisa
+        const searchDatabase = [
+            // Canais de TV
+            { name: "TV Cultura", type: "tv", action: () => loadTVCultura() },
+            { name: "Globo", type: "tv", action: () => window.open('https://globoplay.globo.com/', '_blank') },
+            { name: "Record", type: "tv", action: () => window.open('https://assine.playplus.com/', '_blank') },
+            { name: "TV Aparecida", type: "tv", action: () => loadTVAparecida() },
+            { name: "SBT", type: "tv", action: () => changeChannel('https://mais.sbt.com.br/') },
+            { name: "Band", type: "tv", action: () => changeChannel('https://www.band.uol.com.br/ao-vivo') },
+            { name: "RedeTV!", type: "tv", action: () => changeChannel('https://www.redetv.com.br/ao-vivo') },
+            { name: "TV Brasil", type: "tv", action: () => changeChannel('https://tvbrasil.ebc.com.br/ao-vivo') },
+            { name: "Record News", type: "tv", action: () => changeChannel('https://recordnews.r7.com/ao-vivo') },
+            { name: "Rede Vida", type: "tv", action: () => changeChannel('https://www.redevida.com.br/ao-vivo') },
+            { name: "Jovem Pan", type: "tv", action: () => changeChannel('https://jovempan.com.br/ao-vivo') },
+            { name: "G1", type: "tv", action: () => changeChannel('https://g1.globo.com/') },
+            
+            // Canais de Rádio
+            { name: "Jovem Pan Rádio", type: "radio", action: () => changeChannel('https://jovempan.com.br/aovivo') },
+            { name: "Mix FM", type: "radio", action: () => changeChannel('https://aovivo.radiomixfm.com.br/') },
+            { name: "Rádio Itatiaia", type: "radio", action: () => changeChannel('https://www.itatiaia.com.br/aovivo') },
+            { name: "BandNews FM", type: "radio", action: () => changeChannel('https://www.band.uol.com.br/bandnews-fm/ao-vivo') },
+            { name: "Kiss FM", type: "radio", action: () => changeChannel('https://kissfm.com.br/ao-vivo/') },
+            { name: "Nova Brasil FM", type: "radio", action: () => changeChannel('https://novabrasilfm.com.br/ao-vivo') },
+            
+            // Streaming
+            { name: "Lofi Hip Hop", type: "streaming", action: () => changeChannelToLofi() },
+            { name: "Chill Zone", type: "streaming", action: () => changeChannelToChill() },
+            { name: "CazéTV", type: "streaming", action: () => loadCazeTV() },
+            { name: "Loading TV", type: "streaming", action: () => changeChannel('https://www.olhosnatv.com.br/2022/02/loading-tv.html?m=1') },
+            { name: "Retro Cartoon", type: "streaming", action: () => changeChannel('https://www.olhosnatv.com.br/2018/05/retro-cartoon-desenhos-classicos.html?m=1') },
+            { name: "Pluto TV", type: "streaming", action: () => openServiceSearch('pluto') },
+            { name: "Rede Canais", type: "streaming", action: () => changeChannel('https://www.redecanais.la/') },
+            { name: "YouTube Music", type: "streaming", action: () => openServiceSearch('youtube-music') },
+            { name: "SoundCloud", type: "streaming", action: () => openServiceSearch('soundcloud') },
+            { name: "Twitch", type: "streaming", action: () => openServiceSearch('twitch') },
+            { name: "Spotify", type: "streaming", action: () => openServiceSearch('spotify') },
+            { name: "Deezer", type: "streaming", action: () => openServiceSearch('deezer') },
+            
+            // Jogos
+            { name: "Marvel vs Capcom", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/9123-marvel-vs-capcom-clash-of-super-heroes-980123-usa.html') },
+            { name: "The King of Fighters 2002", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/10386-the-king-of-fighters-2002-magic-plus-bootleg-bootleg.html') },
+            { name: "Streets of Rage 2", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/28481-streets-of-rage-2-usa.html') },
+            { name: "Hyper Street Fighter 2", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/8809-hyper-street-fighter-2%3A-the-anniversary-edition-040202-usa.html') },
+            { name: "Mortal Kombat Trilogy", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/40808-mortal-kombat-trilogy.html') },
+            { name: "Tekken 3", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/43501-tekken-3-world-tet2-ver-e1.html') },
+            
+            // Ações
+            { name: "Discord", type: "action", action: () => changeChannelToDiscord() },
+            { name: "LinkedIn", type: "action", action: () => changeChannelToLinkedIn() },
+            { name: "Chat Online", type: "action", action: () => openChatOnline() },
+            { name: "Criar Torneios", type: "action", action: () => changeChannelToTournament() },
+            { name: "Transmitir Tela", type: "action", action: () => startScreenCast() },
+            { name: "Compartilhar Site", type: "action", action: () => shareSite() },
+            { name: "Buscar Torrents", type: "action", action: () => openTorrentSearch() },
+            { name: "Web Archive", type: "action", action: () => openArchiveSearch() }
+        ];
+
+        // Função para busca global
+        function performGlobalSearch() {
+            const query = document.getElementById('globalSearchInput').value.trim().toLowerCase();
+            if (!query) {
+                document.getElementById('searchResults').style.display = 'none';
+                return;
+            }
+            
+            const results = searchDatabase.filter(item => 
+                item.name.toLowerCase().includes(query)
+            );
+            
+            displayGlobalSearchResults(results);
+        }
+
+        // Função para exibir resultados da busca global
+        function displayGlobalSearchResults(results) {
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-result-item">Nenhum resultado encontrado</div>';
+                resultsContainer.style.display = 'block';
+                return;
+            }
+            
+            let html = '';
+            results.forEach(result => {
+                let icon = '';
+                switch(result.type) {
+                    case 'tv': icon = '<i data-lucide="tv"></i>'; break;
+                    case 'radio': icon = '<i data-lucide="radio"></i>'; break;
+                    case 'streaming': icon = '<i data-lucide="play-circle"></i>'; break;
+                    case 'game': icon = '<i data-lucide="gamepad-2"></i>'; break;
+                    case 'action': icon = '<i data-lucide="zap"></i>'; break;
+                    default: icon = '<i data-lucide="search"></i>';
+                }
+                
+                html += `
+                    <div class="search-result-item" onclick="executeSearchAction('${result.name}')">
+                        ${icon} ${result.name}
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+            resultsContainer.style.display = 'block';
+            lucide.createIcons();
+        }
+
+        // Função para executar ação de busca
+        function executeSearchAction(itemName) {
+            const item = searchDatabase.find(i => i.name === itemName);
+            if (item) {
+                item.action();
+                document.getElementById('searchResults').style.display = 'none';
+                document.getElementById('globalSearchInput').value = '';
+            }
+        }
+
+        // Fechar resultados ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('searchResults').style.display = 'none';
+            }
+        });
+
+        // Inicializa os ícones
+        lucide.createIcons();
+        
+        // Marca o primeiro canal como ativo por padrão
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.channel-button').classList.add('active');
+        });
+    </script>
+</body>
+</html>
