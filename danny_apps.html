@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danny Network Apps</title>
-    <link rel="icon" type="image/png" href="https://www.spriters-resource.com/resources/sheet_icons/165/167900.png?updated=1642357885" />
+    <title>Danny Network</title>
+    <link rel="icon" type="image/png" href="https://www.svgrepo.com/show/143685/play-button.svg" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- LinkedIn Profile Badge -->
     <script src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <style>
         :root[data-theme='light'] {
             --bs-body-bg: #f5f5f5;
@@ -272,6 +268,10 @@
             background-color: var(--bs-button-hover-bg);
         }
 
+        .dropdown-button.active {
+            background-color: #28a745;
+        }
+
         /* Data e hora */
         .datetime-container {
             display: flex;
@@ -308,10 +308,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .chat-button:hover {
-            opacity: 0.9;
         }
 
         .chat-button.discord {
@@ -377,6 +373,15 @@
 
         .chat-button.archive:hover {
             background-color: #554389;
+        }
+        
+        /* Novo botão de pesquisa no Google Drive */
+        .chat-button.drive-search {
+            background-color: #0F9D58;
+        }
+
+        .chat-button.drive-search:hover {
+            background-color: #0B8043;
         }
 
         /* Menu de ações */
@@ -598,74 +603,7 @@
             background-color: #E04B50;
         }
         
-        /* Estilo para o proxy de TV */
-        .proxy-container {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .proxy-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .proxy-button {
-            background-color: #0d6efd;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            border: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-        }
-        
-        .proxy-button:hover {
-            background-color: #0b5ed7;
-            transform: scale(1.05);
-        }
-        
-        .proxy-warning {
-            color: white;
-            text-align: center;
-            max-width: 80%;
-            margin: 0 auto;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        /* Centralizar iframes burlados */
-        .proxy-iframe-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-        }
-        
-        /* Estilo para iframes alternativos */
-        .alternative-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Estilos para o chat online */
+        /* Estilo para o chat online */
         .chat-container {
             width: 100%;
             height: 100%;
@@ -783,7 +721,7 @@
         .login-button {
             margin-top: 1rem;
             padding: 0.75rem 1.5rem;
-            background-color: #4285F4;
+            background-color: #25D366;
             color: white;
             border: none;
             border-radius: 0.5rem;
@@ -794,7 +732,18 @@
         }
 
         .login-button:hover {
-            background-color: #3367D6;
+            background-color: #1DA851;
+        }
+
+        .username-input {
+            width: 200px; /* Tamanho reduzido */
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+            outline: none;
         }
 
         .user-info {
@@ -804,13 +753,356 @@
         }
 
         .sign-out-button {
-            background: none;
-            border: none;
+            background-color: #0d6efd;
             color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.25rem;
+        }
+
+        .sign-out-button:hover {
+            background-color: #0b5ed7;
+        }
+
+        /* Estilo para o upload de arquivos */
+        .file-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .file-upload-label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .file-upload-label:hover {
+            background-color: #5a6268;
+        }
+
+        .file-upload-input {
+            display: none;
+        }
+
+        /* Estilo para o botão de copiar */
+        .copy-button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .copy-button:hover {
+            background-color: #5a6268;
+        }
+
+        /* Botão de fechar no chat */
+        .close-chat-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1050;
+        }
+
+        /* Botão de som */
+        .sound-button {
+            margin-top: 10px;
+            width: 100%;
+            background-color: var(--bs-button-bg);
+            color: var(--bs-button-color);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sound-button:hover {
+            background-color: var(--bs-button-hover-bg);
+        }
+
+        .sound-button.active {
+            background-color: #28a745;
+        }
+
+        /* Estilo para mensagens da IA */
+        .message.ai {
+            align-self: flex-start;
+            background-color: #6c757d;
+            color: white;
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        /* Vídeo de demonstração */
+        .demo-video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Indicador de digitação */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            background-color: var(--bs-dropdown-bg);
+            border-radius: 18px;
+            width: fit-content;
+            margin-left: 8px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #9ca3af;
+            border-radius: 50%;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        /* Formulário de contato */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-input, .form-textarea {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+            outline: none;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-submit:hover {
+            background-color: #0b5ed7;
+        }
+
+        /* Botão rosa para o chat com IA */
+        .chat-button.ai-chat {
+            background-color: #FF69B4;
+        }
+
+        .chat-button.ai-chat:hover {
+            background-color: #E6499E;
+        }
+
+        /* Botão de link da Wikipedia */
+        .wiki-link-button {
+            margin-top: 10px;
+            background-color: var(--bs-button-bg);
+            color: var(--bs-button-color);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .wiki-link-button:hover {
+            background-color: var(--bs-button-hover-bg);
+        }
+
+        /* Imagem da Wikipedia */
+        .wiki-image {
+            max-width: 100%;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid var(--bs-border-color);
+        }
+
+        /* Botão de fonte */
+        .source-button {
+            margin-top: 10px;
+            background-color: var(--bs-button-bg);
+            color: var(--bs-button-color);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .source-button:hover {
+            background-color: var(--bs-button-hover-bg);
+        }
+
+        /* Estilo para o player de mídia */
+        .media-player-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bs-card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .media-player-header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .media-player-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .media-player {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            background-color: #000;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .media-input-container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .media-input {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-card-bg);
+            color: var(--bs-body-color);
+            outline: none;
+        }
+
+        .media-play-button {
+            padding: 0 1rem;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .media-play-button:hover {
+            background-color: #0b5ed7;
+        }
+
+        /* Estilo para o badge do LinkedIn que será mostrado no iframe */
+        .linkedin-iframe-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        /* Botão de carregar arquivo no player de mídia */
+        .load-file-button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .load-file-button:hover {
+            background-color: #5a6268;
         }
     </style>
 </head>
@@ -873,16 +1165,20 @@
                         <input type="range" min="50" max="150" value="100" id="brightnessRange" oninput="updateBrightness()" />
                         
                         <li class="range-label">
-                            <i data-lucide="volume-2"></i> Volume
+                            <i data="lucide="volume-2"></i> Volume
                         </li>
                         <input type="range" min="0" max="100" value="100" id="volumeRange" oninput="updateVolume()" />
+
+                        <button class="sound-button" id="soundButton" onclick="toggleSoundEffects()">
+                            <i data-lucide="volume-2"></i> Ativar Efeitos Sonoros
+                        </button>
 
                         <button class="dropdown-button mt-2" onclick="blockAds()">
                             <i data-lucide="shield"></i> Bloquear Anúncios
                         </button>
 
-                        <button class="dropdown-button" onclick="toggleTheme()">
-                            <i data-lucide="paintbrush"></i> Mudar o Tema
+                        <button class="dropdown-button" id="themeButton" onclick="toggleTheme()">
+                            <i data-lucide="paintbrush"></i> Mudar para Tema Claro
                         </button>
                     </ul>
                 </li>
@@ -933,6 +1229,9 @@
                             <button class="chat-button chat-online" onclick="openChatOnline()">
                                 <i data-lucide="messages-square"></i> Chat Online
                             </button>
+                            <button class="chat-button ai-chat" onclick="openAIChat()">
+                                <i data-lucide="message-circle"></i> Chat com IA
+                            </button>
                             <button class="chat-button screencast" onclick="startScreenCast()">
                                 <i data-lucide="cast"></i> Transmitir Tela
                             </button>
@@ -945,8 +1244,14 @@
                             <button class="chat-button archive" onclick="openArchiveSearch()">
                                 <i data-lucide="archive"></i> Web Archive
                             </button>
+                            <button class="chat-button drive-search" onclick="openDriveSearch()">
+                                <i data-lucide="search"></i> Buscar no Drive
+                            </button>
                             <button class="chat-button share" onclick="shareSite()">
                                 <i data-lucide="share-2"></i> Compartilhar Site
+                            </button>
+                            <button class="chat-button" style="background-color: #9c27b0;" onclick="openMediaPlayer()">
+                                <i data-lucide="play"></i> Player de Mídia
                             </button>
                         </div>
                     </ul>
@@ -967,7 +1272,7 @@
                             <button class="nav-button" data-bs-toggle="modal" data-bs-target="#aboutModal">
                                 <i data-lucide="heart"></i> Sobre nós
                             </button>
-                            <button class="nav-button" onclick="window.location.href='mailto:contato@dannynetwork.com'">
+                            <button class="nav-button" data-bs-toggle="modal" data-bs-target="#contactModal">
                                 <i data-lucide="mail"></i> Contato
                             </button>
                             <a href="https://github.com/DannyBarbosaBR" class="nav-button text-decoration-none">
@@ -979,16 +1284,6 @@
                             <button class="chat-button linkedin" onclick="changeChannelToLinkedIn()">
                                 <i data-lucide="linkedin"></i> LinkedIn
                             </button>
-                            <div class="linkedin-badge-container">
-                                <div class="LI-profile-badge"  
-                                     data-version="v1" 
-                                     data-size="medium" 
-                                     data-locale="pt_BR" 
-                                     data-type="horizontal" 
-                                     data-theme="light" 
-                                     data-vanity="daniel-barbosa-de-lima-4181b4266">
-                                </div>
-                            </div>
                         </div>
                     </ul>
                 </li>
@@ -1015,13 +1310,29 @@
             <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
                 <i data-lucide="maximize"></i> Tela Cheia
             </button>
+            <!-- Badge do LinkedIn que será mostrado apenas quando ativado -->
+            <div class="linkedin-iframe-badge" id="linkedinBadge">
+                <div class="LI-profile-badge"  
+                     data-version="v1" 
+                     data-size="medium" 
+                     data-locale="pt_BR" 
+                     data-type="horizontal" 
+                     data-theme="light" 
+                     data-vanity="daniel-barbosa-de-lima-4181b4266">
+                </div>
+                <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                    <i data-lucide="x"></i> Fechar
+                </button>
+            </div>
         </div>
 
         <!-- Informações do Canal -->
         <div class="info-box">
             <h4><i data-lucide="info"></i> Informações do Canal</h4>
             <p><strong>Site atual:</strong> <span class="site-url" id="currentSiteUrl">https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1</span></p>
-            <p><strong>Fonte:</strong> <a href="https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1" class="source-link" target="_blank" id="sourceLink">Acessar fonte diretamente</a></p>
+            <p><strong>Fonte:</strong> <button class="source-button" onclick="window.open('https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1', '_blank')">
+                <i data-lucide="external-link"></i> Acessar fonte diretamente
+            </button></p>
             <p><strong>Status:</strong> <span id="siteStatus">Carregando...</span></p>
         </div>
 
@@ -1029,7 +1340,7 @@
         <h3 class="section-title" id="tvChannelsSection"><i data-lucide="tv"></i> Canais de TV Aberta</h3>
         <div class="row row-cols-2 row-cols-md-4 g-3" id="channelList">
             <div class="col">
-                <div class="channel-button" onclick="loadTVCultura()">
+                <div class="channel-button" onclick="window.open('https://cultura.uol.com.br/aovivo/', '_blank')">
                     <i data-lucide="tv"></i><br />TV Cultura
                 </div>
             </div>
@@ -1044,47 +1355,47 @@
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="loadTVAparecida()">
+                <div class="channel-button" onclick="window.open('https://www.a12.com/tvaparecida/ao-vivo', '_blank')">
                     <i data-lucide="tv"></i><br />TV Aparecida
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://mais.sbt.com.br/')">
+                <div class="channel-button" onclick="window.open('https://mais.sbt.com.br/', '_blank')">
                     <i data-lucide="tv"></i><br />SBT
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://www.band.uol.com.br/ao-vivo')">
+                <div class="channel-button" onclick="window.open('https://www.band.uol.com.br/ao-vivo', '_blank')">
                     <i data-lucide="tv"></i><br />Band
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://www.redetv.com.br/ao-vivo')">
+                <div class="channel-button" onclick="window.open('https://www.redetv.com.br/ao-vivo', '_blank')">
                     <i data-lucide="tv"></i><br />RedeTV!
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://tvbrasil.ebc.com.br/ao-vivo')">
+                <div class="channel-button" onclick="window.open('https://tvbrasil.ebc.com.br/ao-vivo', '_blank')">
                     <i data-lucide="tv"></i><br />TV Brasil
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://recordnews.r7.com/ao-vivo')">
+                <div class="channel-button" onclick="window.open('https://recordnews.r7.com/ao-vivo', '_blank')">
                     <i data-lucide="tv"></i><br />Record News
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://www.redevida.com.br/ao-vivo')">
+                <div class="channel-button" onclick="window.open('https://www.redevida.com.br/ao-vivo', '_blank')">
                     <i data-lucide="tv"></i><br />Rede Vida
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://jovempan.com.br/ao-vivo')">
+                <div class="channel-button" onclick="window.open('https://jovempan.com.br/ao-vivo', '_blank')">
                     <i data-lucide="tv"></i><br />Jovem Pan
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="changeChannel('https://g1.globo.com/')">
+                <div class="channel-button" onclick="window.open('https://g1.globo.com/', '_blank')">
                     <i data-lucide="tv"></i><br />G1
                 </div>
             </div>
@@ -1139,7 +1450,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="loadCazeTV()">
+                <div class="channel-button" onclick="window.open('https://www.cazetv.com.br/', '_blank')">
                     <i data-lucide="tv"></i><br />CazéTV
                 </div>
             </div>
@@ -1199,8 +1510,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/10386-the-king-of-fighters-2002-magic-plus-bootleg-bootleg.html')">
-                    <i data-lucide="joystick"></i><br />The King of Fighters 2002
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/43501-tekken-3-world-tet2-ver-e1.html')">
+                    <i data-lucide="joystick"></i><br />Tekken 3
                 </div>
             </div>
             <div class="col">
@@ -1209,18 +1520,18 @@
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/8809-hyper-street-fighter-2%3A-the-anniversary-edition-040202-usa.html')">
-                    <i data-lucide="joystick"></i><br />Hyper Street Fighter 2
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/41644-capcom-vs-snk-millennium-fight-2000.html')">
+                    <i data-lucide="joystick"></i><br />Capcom vs SNK
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/40808-mortal-kombat-trilogy.html')">
-                    <i data-lucide="joystick"></i><br />Mortal Kombat Trilogy
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/10062-street-fighter-iii-3rd-strike%3A-fight-for-the-future-usa-990608.html')">
+                    <i data-lucide="joystick"></i><br />Street Fighter III
                 </div>
             </div>
             <div class="col">
-                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/43501-tekken-3-world-tet2-ver-e1.html')">
-                    <i data-lucide="joystick"></i><br />Tekken 3
+                <div class="channel-button" onclick="loadArcadeGame('https://www.retrogames.cc/embed/10386-the-king-of-fighters-2002-magic-plus-bootleg-bootleg.html')">
+                    <i data-lucide="joystick"></i><br />The King of Fighters 2002
                 </div>
             </div>
         </div>
@@ -1228,7 +1539,7 @@
 
     <!-- Rodapé -->
     <footer class="text-center mt-5 py-3 border-top">
-        <p>Danny Network Apps &copy; 2024</p>
+        <p>Danny Network &copy; 2024</p>
     </footer>
 
     <!-- Modal Sobre Nós -->
@@ -1243,6 +1554,40 @@
                     <p>Este site foi desenvolvido por Danny Barbosa com a ajuda do assistente AI.</p>
                     <p>O objetivo é fornecer uma plataforma simples e eficiente para assistir canais de TV e streaming em um só lugar.</p>
                     <p>Esperamos que você aproveite a experiência!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="dropdown-button" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Contato -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel"><i data-lucide="mail"></i> Enviar Mensagem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName" class="form-label">Seu Nome</label>
+                            <input type="text" id="contactName" class="form-input" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail" class="form-label">Seu Email</label>
+                            <input type="email" id="contactEmail" class="form-input" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage" class="form-label">Mensagem</label>
+                            <textarea id="contactMessage" class="form-textarea" required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            <i data-lucide="send"></i> Enviar Mensagem
+                        </button>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="dropdown-button" data-bs-dismiss="modal">Fechar</button>
@@ -1298,146 +1643,26 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Buscador de YouTube Music -->
-    <div class="modal fade" id="youtubeMusicSearchModal" tabindex="-1" aria-labelledby="youtubeMusicSearchModalLabel" aria-hidden="true">
+    
+    <!-- Modal Buscador no Google Drive -->
+    <div class="modal fade" id="driveSearchModal" tabindex="-1" aria-labelledby="driveSearchModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="youtubeMusicSearchModalLabel"><i data-lucide="music-2"></i> Buscar no YouTube Music</h5>
+                    <h5 class="modal-title" id="driveSearchModalLabel"><i data-lucide="search"></i> Pesquisar no Google Drive</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body search-modal-container">
-                    <input type="text" class="search-modal-input" id="youtubeMusicSearchInput" placeholder="Pesquisar músicas, artistas..." />
-                    <button class="dropdown-button youtube-music-color" onclick="searchYouTubeMusic()">
+                    <input type="text" class="search-modal-input" id="driveSearchInput" placeholder="Pesquisar no Google Drive..." />
+                    <button class="dropdown-button drive-search" onclick="searchDrive()">
                         <i data-lucide="search"></i> Buscar
                     </button>
-                    <div class="search-modal-results" id="youtubeMusicSearchResults">
+                    <div class="search-modal-results" id="driveSearchResults">
                         <!-- Os resultados serão exibidos aqui -->
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="dropdown-button youtube-music-color" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Buscador de SoundCloud -->
-    <div class="modal fade" id="soundcloudSearchModal" tabindex="-1" aria-labelledby="soundcloudSearchModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="soundcloudSearchModalLabel"><i data-lucide="music"></i> Buscar no SoundCloud</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body search-modal-container">
-                    <input type="text" class="search-modal-input" id="soundcloudSearchInput" placeholder="Pesquisar músicas, podcasts..." />
-                    <button class="dropdown-button soundcloud-color" onclick="searchSoundCloud()">
-                        <i data-lucide="search"></i> Buscar
-                    </button>
-                    <div class="search-modal-results" id="soundcloudSearchResults">
-                        <!-- Os resultados serão exibidos aqui -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="dropdown-button soundcloud-color" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Buscador de Twitch -->
-    <div class="modal fade" id="twitchSearchModal" tabindex="-1" aria-labelledby="twitchSearchModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="twitchSearchModalLabel"><i data-lucide="twitch"></i> Buscar na Twitch</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body search-modal-container">
-                    <input type="text" class="search-modal-input" id="twitchSearchInput" placeholder="Pesquisar canais, streams..." />
-                    <button class="dropdown-button twitch-color" onclick="searchTwitch()">
-                        <i data-lucide="search"></i> Buscar
-                    </button>
-                    <div class="search-modal-results" id="twitchSearchResults">
-                        <!-- Os resultados serão exibidos aqui -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="dropdown-button twitch-color" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Buscador de Spotify -->
-    <div class="modal fade" id="spotifySearchModal" tabindex="-1" aria-labelledby="spotifySearchModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="spotifySearchModalLabel"><i data-lucide="music"></i> Buscar no Spotify</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body search-modal-container">
-                    <input type="text" class="search-modal-input" id="spotifySearchInput" placeholder="Pesquisar músicas, artistas..." />
-                    <button class="dropdown-button spotify-color" onclick="searchSpotify()">
-                        <i data-lucide="search"></i> Buscar
-                    </button>
-                    <div class="search-modal-results" id="spotifySearchResults">
-                        <!-- Os resultados serão exibidos aqui -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="dropdown-button spotify-color" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Buscador de Deezer -->
-    <div class="modal fade" id="deezerSearchModal" tabindex="-1" aria-labelledby="deezerSearchModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deezerSearchModalLabel"><i data-lucide="music-4"></i> Buscar no Deezer</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body search-modal-container">
-                    <input type="text" class="search-modal-input" id="deezerSearchInput" placeholder="Pesquisar músicas, playlists..." />
-                    <button class="dropdown-button deezer-color" onclick="searchDeezer()">
-                        <i data-lucide="search"></i> Buscar
-                    </button>
-                    <div class="search-modal-results" id="deezerSearchResults">
-                        <!-- Os resultados serão exibidos aqui -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="dropdown-button deezer-color" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Buscador de Pluto TV -->
-    <div class="modal fade" id="plutoSearchModal" tabindex="-1" aria-labelledby="plutoSearchModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="plutoSearchModalLabel"><i data-lucide="tv-2"></i> Buscar na Pluto TV</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body search-modal-container">
-                    <input type="text" class="search-modal-input" id="plutoSearchInput" placeholder="Pesquisar canais, programas..." />
-                    <button class="dropdown-button pluto-color" onclick="searchPluto()">
-                        <i data-lucide="search"></i> Buscar
-                    </button>
-                    <div class="search-modal-results" id="plutoSearchResults">
-                        <!-- Os resultados serão exibidos aqui -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="dropdown-button pluto-color" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="dropdown-button drive-search" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -1460,34 +1685,172 @@
         </div>
     </div>
 
+    <!-- Modal Chat com IA -->
+    <div class="modal fade" id="aiChatModal" tabindex="-1" aria-labelledby="aiChatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aiChatModalLabel"><i data-lucide="message-circle"></i> Chat com IA</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" style="height: 500px;">
+                    <div class="chat-container" id="aiChatContainer">
+                        <div class="chat-header">
+                            <div class="user-info">
+                                <i data-lucide="bot"></i>
+                                <span>Assistente DannyBot</span>
+                            </div>
+                            <button type="button" class="sign-out-button" onclick="closeAIChat()">
+                                <i data-lucide="x"></i> Fechar
+                            </button>
+                        </div>
+                        <div class="chat-messages" id="aiChatMessages">
+                            <div class="message ai">
+                                <div class="message-info">
+                                    <i data-lucide="bot"></i>
+                                    <span class="user-name">Assistente</span>
+                                </div>
+                                <div>Olá! Eu sou o DannyBot, seu assistente virtual. Como posso te ajudar hoje?</div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" id="aiMessageInput" placeholder="Digite sua mensagem para a IA..." />
+                            <button class="send-button" onclick="sendAIMessage()">
+                                <i data-lucide="send"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Player de Mídia -->
+    <div class="modal fade" id="mediaPlayerModal" tabindex="-1" aria-labelledby="mediaPlayerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediaPlayerModalLabel"><i data-lucide="play"></i> Player de Mídia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" style="height: 600px;">
+                    <div class="media-player-container">
+                        <div class="media-player-header">
+                            <div class="user-info">
+                                <i data-lucide="play"></i>
+                                <span>Player de Mídia</span>
+                            </div>
+                            <button type="button" class="sign-out-button" onclick="closeMediaPlayer()">
+                                <i data-lucide="x"></i> Fechar
+                            </button>
+                        </div>
+                        <div class="media-player-content">
+                            <div class="media-player" id="mediaPlayer">
+                                <p style="color: white; text-align: center; padding-top: 200px;">Carregue um arquivo de mídia ou insira um URL</p>
+                            </div>
+                            <div class="media-input-container">
+                                <input type="text" class="media-input" id="mediaUrlInput" placeholder="Insira a URL do vídeo ou áudio..." />
+                                <button class="media-play-button" onclick="playMediaFromUrl()">
+                                    <i data-lucide="play"></i> Reproduzir
+                                </button>
+                            </div>
+                            <div class="media-input-container">
+                                <button class="load-file-button" onclick="document.getElementById('mediaFileInput').click()">
+                                    <i data-lucide="save"></i> Carregar Arquivo
+                                </button>
+                                <input type="file" id="mediaFileInput" class="file-upload-input" accept="audio/*,video/*" onchange="playMediaFromFile()" />
+                            </div>
+                            <div class="media-input-container">
+                                <button class="dropdown-button" onclick="showMediaControlsHelp()">
+                                    <i data-lucide="help-circle"></i> Ajuda com Controles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDz4J6Q1Z1Q1Z1Q1Z1Q1Z1Q1Z1Q1Z1Q1Z1",
-            authDomain: "danny-network-chat.firebaseapp.com",
-            databaseURL: "https://danny-network-chat-default-rtdb.firebaseio.com",
-            projectId: "danny-network-chat",
-            storageBucket: "danny-network-chat.appspot.com",
-            messagingSenderId: "1234567890",
-            appId: "1:1234567890:web:abcdef1234567890"
-        };
-
-        // Inicializa o Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const auth = firebase.auth();
-        const provider = new firebase.auth.GoogleAuthProvider();
-
+        // Configuração do BroadcastChannel para comunicação P2P
+        const chatChannel = new BroadcastChannel('danny_network_chat');
+        
         let currentChannelUrl = "https://www.youtube.com/embed/live_stream?channel=UC2D2CMWXMOUWfxQ2cQfV_pQ&autoplay=1";
         let currentEmbedType = "youtube";
         let currentUser = null;
+        let userName = null;
+        let soundEffectsEnabled = false;
+        let messagesCache = [];
+        let mediaPlayer = null;
         
+        // Carregar configurações salvas
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('appSettings')) || {};
+            
+            // Configuração de tema
+            if (settings.theme) {
+                document.documentElement.setAttribute('data-theme', settings.theme);
+                updateThemeButtonText();
+            }
+            
+            // Configuração de brilho
+            if (settings.brightness) {
+                document.getElementById('brightnessRange').value = settings.brightness;
+                document.body.style.filter = `brightness(${settings.brightness}%)`;
+            }
+            
+            // Configuração de volume
+            if (settings.volume) {
+                document.getElementById('volumeRange').value = settings.volume;
+            }
+            
+            // Configuração de efeitos sonoros
+            if (settings.soundEffects !== undefined) {
+                soundEffectsEnabled = settings.soundEffects;
+                const soundButton = document.getElementById('soundButton');
+                if (soundEffectsEnabled) {
+                    soundButton.innerHTML = '<i data-lucide="volume-2"></i> Desativar Efeitos Sonoros';
+                    soundButton.classList.add('active');
+                } else {
+                    soundButton.innerHTML = '<i data-lucide="volume-x"></i> Ativar Efeitos Sonoros';
+                    soundButton.classList.remove('active');
+                }
+                lucide.createIcons();
+            }
+        }
+        
+        // Salvar configurações
+        function saveSettings() {
+            const settings = {
+                theme: document.documentElement.getAttribute('data-theme'),
+                brightness: document.getElementById('brightnessRange').value,
+                volume: document.getElementById('volumeRange').value,
+                soundEffects: soundEffectsEnabled
+            };
+            localStorage.setItem('appSettings', JSON.stringify(settings));
+        }
+        
+        // Atualizar texto do botão de tema
+        function updateThemeButtonText() {
+            const themeButton = document.getElementById('themeButton');
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                themeButton.innerHTML = '<i data-lucide="paintbrush"></i> Mudar para Tema Claro';
+            } else {
+                themeButton.innerHTML = '<i data-lucide="paintbrush"></i> Mudar para Tema Escuro';
+            }
+            lucide.createIcons();
+        }
+
         // Mostrar spinner de carregamento
         function showLoadingSpinner() {
             document.getElementById('iframeLoading').style.display = 'flex';
             document.getElementById('tvFrame').style.display = 'none';
             document.getElementById('siteStatus').textContent = 'Carregando...';
+            playPageSound();
         }
 
         // Esconder spinner de carregamento
@@ -1495,166 +1858,6 @@
             document.getElementById('iframeLoading').style.display = 'none';
             document.getElementById('tvFrame').style.display = 'block';
             document.getElementById('siteStatus').textContent = 'Carregado com sucesso';
-        }
-
-        // Função para carregar a TV Cultura usando um proxy alternativo
-        function loadTVCultura() {
-            showLoadingSpinner();
-            currentChannelUrl = "https://cultura.uol.com.br/aovivo/";
-            currentEmbedType = "proxy";
-            
-            const container = document.getElementById("mainFrameContainer");
-            container.innerHTML = `
-                <div class="iframe-loading" id="iframeLoading">
-                    <div class="loading-spinner"></div>
-                </div>
-                <div class="proxy-overlay" id="proxyOverlay">
-                    <button class="proxy-button" onclick="loadTVCulturaDirect()">
-                        <i data-lucide="tv"></i> Carregar Canal
-                    </button>
-                    <div class="proxy-warning">
-                        Clique no botão acima para carregar o conteúdo da TV Cultura
-                    </div>
-                </div>
-                <iframe
-                    id="tvFrame"
-                    src="about:blank"
-                    frameborder="0"
-                    allowfullscreen
-                    width="100%"
-                    height="100%"
-                    style="display: none;"
-                ></iframe>
-                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
-                    <i data-lucide="maximize"></i> Tela Cheia
-                </button>
-            `;
-            
-            updateChannelInfo(currentChannelUrl);
-            if (event && event.currentTarget) {
-                updateActiveButton(event.currentTarget);
-            }
-            lucide.createIcons();
-        }
-
-        // Função para tentar carregar a TV Cultura diretamente
-        function loadTVCulturaDirect() {
-            document.getElementById('proxyOverlay').style.display = 'none';
-            document.getElementById('tvFrame').style.display = 'block';
-            
-            // Usando um iframe alternativo com referrerpolicy e sandbox
-            document.getElementById('tvFrame').src = currentChannelUrl;
-            document.getElementById('tvFrame').onload = hideLoadingSpinner;
-            
-            // Adicionando atributos para tentar burlar restrições
-            document.getElementById('tvFrame').setAttribute('referrerpolicy', 'no-referrer');
-            document.getElementById('tvFrame').setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
-        }
-
-        // Função para carregar a TV Aparecida
-        function loadTVAparecida() {
-            showLoadingSpinner();
-            currentChannelUrl = "https://www.a12.com/tvaparecida/ao-vivo";
-            currentEmbedType = "proxy";
-            
-            const container = document.getElementById("mainFrameContainer");
-            container.innerHTML = `
-                <div class="iframe-loading" id="iframeLoading">
-                    <div class="loading-spinner"></div>
-                </div>
-                <div class="proxy-overlay" id="proxyOverlay">
-                    <button class="proxy-button" onclick="loadTVAparecidaDirect()">
-                        <i data-lucide="tv"></i> Carregar Canal
-                    </button>
-                    <div class="proxy-warning">
-                        Clique no botão acima para carregar o conteúdo da TV Aparecida
-                    </div>
-                </div>
-                <iframe
-                    id="tvFrame"
-                    src="about:blank"
-                    frameborder="0"
-                    allowfullscreen
-                    width="100%"
-                    height="100%"
-                    style="display: none;"
-                ></iframe>
-                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
-                    <i data-lucide="maximize"></i> Tela Cheia
-                </button>
-            `;
-            
-            updateChannelInfo(currentChannelUrl);
-            if (event && event.currentTarget) {
-                updateActiveButton(event.currentTarget);
-            }
-            lucide.createIcons();
-        }
-
-        function loadTVAparecidaDirect() {
-            document.getElementById('proxyOverlay').style.display = 'none';
-            document.getElementById('tvFrame').style.display = 'block';
-            
-            // Usando um iframe alternativo com referrerpolicy e sandbox
-            document.getElementById('tvFrame').src = currentChannelUrl;
-            document.getElementById('tvFrame').onload = hideLoadingSpinner;
-            
-            // Adicionando atributos para tentar burlar restrições
-            document.getElementById('tvFrame').setAttribute('referrerpolicy', 'no-referrer');
-            document.getElementById('tvFrame').setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
-        }
-
-        // Função para carregar CazéTV
-        function loadCazeTV() {
-            showLoadingSpinner();
-            currentChannelUrl = "https://www.cazetv.com.br/";
-            currentEmbedType = "proxy";
-            
-            const container = document.getElementById("mainFrameContainer");
-            container.innerHTML = `
-                <div class="iframe-loading" id="iframeLoading">
-                    <div class="loading-spinner"></div>
-                </div>
-                <div class="proxy-overlay" id="proxyOverlay">
-                    <button class="proxy-button" onclick="loadCazeTVDirect()">
-                        <i data-lucide="tv"></i> Carregar Canal
-                    </button>
-                    <div class="proxy-warning">
-                        Clique no botão acima para carregar o conteúdo da CazéTV
-                    </div>
-                </div>
-                <iframe
-                    id="tvFrame"
-                    src="about:blank"
-                    frameborder="0"
-                    allowfullscreen
-                    width="100%"
-                    height="100%"
-                    style="display: none;"
-                ></iframe>
-                <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
-                    <i data-lucide="maximize"></i> Tela Cheia
-                </button>
-            `;
-            
-            updateChannelInfo(currentChannelUrl);
-            if (event && event.currentTarget) {
-                updateActiveButton(event.currentTarget);
-            }
-            lucide.createIcons();
-        }
-
-        function loadCazeTVDirect() {
-            document.getElementById('proxyOverlay').style.display = 'none';
-            document.getElementById('tvFrame').style.display = 'block';
-            
-            // Usando um iframe alternativo com referrerpolicy e sandbox
-            document.getElementById('tvFrame').src = currentChannelUrl;
-            document.getElementById('tvFrame').onload = hideLoadingSpinner;
-            
-            // Adicionando atributos para tentar burlar restrições
-            document.getElementById('tvFrame').setAttribute('referrerpolicy', 'no-referrer');
-            document.getElementById('tvFrame').setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
         }
 
         function changeChannel(url) {
@@ -1682,6 +1885,20 @@
                 <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
                     <i data-lucide="maximize"></i> Tela Cheia
                 </button>
+                <!-- Badge do LinkedIn que será mostrado apenas quando ativado -->
+                <div class="linkedin-iframe-badge" id="linkedinBadge">
+                    <div class="LI-profile-badge"  
+                         data-version="v1" 
+                         data-size="medium" 
+                         data-locale="pt_BR" 
+                         data-type="horizontal" 
+                         data-theme="light" 
+                         data-vanity="daniel-barbosa-de-lima-4181b4266">
+                    </div>
+                    <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i data-lucide="x"></i> Fechar
+                    </button>
+                </div>
             `;
             
             updateChannelInfo(url);
@@ -1690,15 +1907,12 @@
             }
         }
 
-        // Função para carregar jogos de arcade
+        // Função para carregar jogos de arcade (sem spinner de carregamento)
         function loadArcadeGame(embedUrl) {
-            showLoadingSpinner();
+            playPageSound();
             currentEmbedType = "arcade";
             const container = document.getElementById("mainFrameContainer");
             container.innerHTML = `
-                <div class="iframe-loading" id="iframeLoading">
-                    <div class="loading-spinner"></div>
-                </div>
                 <iframe
                     id="arcadeFrame"
                     src="${embedUrl}"
@@ -1706,15 +1920,31 @@
                     allowfullscreen
                     width="100%"
                     height="100%"
-                    style="background-color: #000; display: none;"
-                    onload="hideLoadingSpinner()"
+                    style="background-color: #000;"
+                    referrerpolicy="no-referrer"
+                    sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
                 ></iframe>
                 <button class="fullscreen-btn" onclick="toggleFullscreenArcade()">
                     <i data-lucide="maximize"></i> Tela Cheia
                 </button>
+                <!-- Badge do LinkedIn que será mostrado apenas quando ativado -->
+                <div class="linkedin-iframe-badge" id="linkedinBadge">
+                    <div class="LI-profile-badge"  
+                         data-version="v1" 
+                         data-size="medium" 
+                         data-locale="pt_BR" 
+                         data-type="horizontal" 
+                         data-theme="light" 
+                         data-vanity="daniel-barbosa-de-lima-4181b4266">
+                    </div>
+                    <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i data-lucide="x"></i> Fechar
+                    </button>
+                </div>
             `;
             
             updateChannelInfo(embedUrl);
+            document.getElementById('siteStatus').textContent = 'Carregado com sucesso';
             if (event && event.currentTarget) {
                 updateActiveButton(event.currentTarget);
             }
@@ -1742,6 +1972,7 @@
                     document.msExitFullscreen();
                 }
             }
+            playButtonSound();
         }
 
         function changeChannelToLofi() {
@@ -1770,6 +2001,20 @@
                 <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
                     <i data-lucide="maximize"></i> Tela Cheia
                 </button>
+                <!-- Badge do LinkedIn que será mostrado apenas quando ativado -->
+                <div class="linkedin-iframe-badge" id="linkedinBadge">
+                    <div class="LI-profile-badge"  
+                         data-version="v1" 
+                         data-size="medium" 
+                         data-locale="pt_BR" 
+                         data-type="horizontal" 
+                         data-theme="light" 
+                         data-vanity="daniel-barbosa-de-lima-4181b4266">
+                    </div>
+                    <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i data-lucide="x"></i> Fechar
+                    </button>
+                </div>
             `;
             
             updateChannelInfo(currentChannelUrl);
@@ -1804,6 +2049,20 @@
                 <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
                     <i data-lucide="maximize"></i> Tela Cheia
                 </button>
+                <!-- Badge do LinkedIn que será mostrado apenas quando ativado -->
+                <div class="linkedin-iframe-badge" id="linkedinBadge">
+                    <div class="LI-profile-badge"  
+                         data-version="v1" 
+                         data-size="medium" 
+                         data-locale="pt_BR" 
+                         data-type="horizontal" 
+                         data-theme="light" 
+                         data-vanity="daniel-barbosa-de-lima-4181b4266">
+                    </div>
+                    <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i data-lucide="x"></i> Fechar
+                    </button>
+                </div>
             `;
             
             updateChannelInfo(currentChannelUrl);
@@ -1836,6 +2095,20 @@
                 <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
                     <i data-lucide="maximize"></i> Tela Cheia
                 </button>
+                <!-- Badge do LinkedIn que será mostrado apenas quando ativado -->
+                <div class="linkedin-iframe-badge" id="linkedinBadge">
+                    <div class="LI-profile-badge"  
+                         data-version="v1" 
+                         data-size="medium" 
+                         data-locale="pt_BR" 
+                         data-type="horizontal" 
+                         data-theme="light" 
+                         data-vanity="daniel-barbosa-de-lima-4181b4266">
+                    </div>
+                    <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i data-lucide="x"></i> Fechar
+                    </button>
+                </div>
             `;
             
             updateChannelInfo(currentChannelUrl);
@@ -1866,9 +2139,40 @@
                 <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
                     <i data-lucide="maximize"></i> Tela Cheia
                 </button>
+                <!-- Mostra o badge do LinkedIn diretamente no iframe -->
+                <div class="linkedin-iframe-badge" id="linkedinBadge" style="display: block;">
+                    <div class="LI-profile-badge"  
+                         data-version="v1" 
+                         data-size="medium" 
+                         data-locale="pt_BR" 
+                         data-type="horizontal" 
+                         data-theme="light" 
+                         data-vanity="daniel-barbosa-de-lima-4181b4266">
+                    </div>
+                    <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i data-lucide="x"></i> Fechar
+                    </button>
+                </div>
             `;
             
             updateChannelInfo(currentChannelUrl);
+        }
+
+        // Função para mostrar/ocultar o badge do LinkedIn
+        function toggleLinkedInBadge() {
+            const badge = document.getElementById('linkedinBadge');
+            if (badge.style.display === 'block') {
+                badge.style.display = 'none';
+            } else {
+                badge.style.display = 'block';
+            }
+            playButtonSound();
+        }
+
+        // Função para ocultar o badge do LinkedIn
+        function hideLinkedInBadge() {
+            document.getElementById('linkedinBadge').style.display = 'none';
+            playButtonSound();
         }
 
         function changeChannelToTournament() {
@@ -1896,6 +2200,20 @@
                 <button class="fullscreen-btn" onclick="toggleFullscreen('mainFrameContainer')">
                     <i data-lucide="maximize"></i> Tela Cheia
                 </button>
+                <!-- Badge do LinkedIn que será mostrado apenas quando ativado -->
+                <div class="linkedin-iframe-badge" id="linkedinBadge">
+                    <div class="LI-profile-badge"  
+                         data-version="v1" 
+                         data-size="medium" 
+                         data-locale="pt_BR" 
+                         data-type="horizontal" 
+                         data-theme="light" 
+                         data-vanity="daniel-barbosa-de-lima-4181b4266">
+                    </div>
+                    <button onclick="hideLinkedInBadge()" style="margin-top: 10px; background: #0077B5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i data-lucide="x"></i> Fechar
+                    </button>
+                </div>
             `;
             
             updateChannelInfo(currentChannelUrl);
@@ -1903,6 +2221,7 @@
 
         // Função para abrir o chat online
         function openChatOnline() {
+            playButtonSound();
             const modal = new bootstrap.Modal(document.getElementById('chatOnlineModal'));
             modal.show();
             
@@ -1910,20 +2229,339 @@
             loadChatInterface();
         }
 
+        // Função para abrir o chat com IA
+        function openAIChat() {
+            playButtonSound();
+            const modal = new bootstrap.Modal(document.getElementById('aiChatModal'));
+            modal.show();
+        }
+
+        // Função para fechar o chat com IA
+        function closeAIChat() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('aiChatModal'));
+            modal.hide();
+            playButtonSound();
+        }
+
+        // Função para abrir o player de mídia
+        function openMediaPlayer() {
+            playButtonSound();
+            const modal = new bootstrap.Modal(document.getElementById('mediaPlayerModal'));
+            modal.show();
+            
+            // Inicializa o player de mídia
+            initializeMediaPlayer();
+        }
+
+        // Função para mostrar ajuda com controles de mídia
+        function showMediaControlsHelp() {
+            alert("Controles de Mídia:\n\n" +
+                  "Para vídeos/áudios locais:\n" +
+                  "- Espaço: Play/Pause\n" +
+                  "Setas Esquerda/Direita: Retroceder/Avançar 5 segundos\n" +
+                  "Setas Cima/Baixo: Aumentar/Diminuir volume\n" +
+                  "M: Mutar/Desmutar\n" +
+                  "F: Tela cheia\n\n" +
+                  "Para vídeos do YouTube:\n" +
+                  "Use os controles na barra do player");
+            playButtonSound();
+        }
+
+        // Função para fechar o player de mídia
+        function closeMediaPlayer() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('mediaPlayerModal'));
+            modal.hide();
+            
+            // Pausa a mídia se estiver tocando
+            if (mediaPlayer) {
+                mediaPlayer.pause();
+                mediaPlayer = null;
+            }
+            
+            playButtonSound();
+        }
+
+        // Função para inicializar o player de mídia
+        function initializeMediaPlayer() {
+            const playerContainer = document.getElementById('mediaPlayer');
+            playerContainer.innerHTML = '<p style="color: white; text-align: center; padding-top: 200px;">Carregue um arquivo de mídia ou insira um URL</p>';
+            mediaPlayer = null;
+        }
+
+        // Função para reproduzir mídia a partir de um URL
+        function playMediaFromUrl() {
+            const url = document.getElementById('mediaUrlInput').value.trim();
+            if (!url) return;
+            
+            const playerContainer = document.getElementById('mediaPlayer');
+            
+            // Verifica se é um vídeo ou áudio
+            const isVideo = /\.(mp4|webm|ogg|mov|avi|mkv)$/i.test(url) || 
+                           /youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com/i.test(url);
+            
+            if (isVideo) {
+                if (/youtube\.com|youtu\.be/i.test(url)) {
+                    // Extrai o ID do vídeo do YouTube
+                    const videoId = extractYouTubeId(url);
+                    if (videoId) {
+                        playerContainer.innerHTML = `
+                            <iframe 
+                                width="100%" 
+                                height="100%" 
+                                src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        `;
+                    } else {
+                        alert('URL do YouTube inválida');
+                    }
+                } else if (/vimeo\.com/i.test(url)) {
+                    // Extrai o ID do vídeo do Vimeo
+                    const videoId = extractVimeoId(url);
+                    if (videoId) {
+                        playerContainer.innerHTML = `
+                            <iframe 
+                                src="https://player.vimeo.com/video/${videoId}?autoplay=1" 
+                                width="100%" 
+                                height="100%" 
+                                frameborder="0" 
+                                allow="autoplay; fullscreen" 
+                                allowfullscreen>
+                            </iframe>
+                        `;
+                    } else {
+                        alert('URL do Vimeo inválida');
+                    }
+                } else {
+                    // Outros vídeos
+                    playerContainer.innerHTML = `
+                        <video width="100%" height="100%" controls autoplay>
+                            <source src="${url}" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                    `;
+                    mediaPlayer = playerContainer.querySelector('video');
+                }
+            } else {
+                // Áudio
+                playerContainer.innerHTML = `
+                    <audio controls autoplay style="width: 100%; margin-top: 200px;">
+                        <source src="${url}" type="audio/mp3">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                `;
+                mediaPlayer = playerContainer.querySelector('audio');
+            }
+            
+            playButtonSound();
+        }
+
+        // Função para extrair ID do vídeo do YouTube
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // Função para extrair ID do vídeo do Vimeo
+        function extractVimeoId(url) {
+            const regExp = /^.*(vimeo\.com\/)((channels\/[A-z]+\/)|(groups\/[A-z]+\/videos\/))?([0-9]+)/;
+            const match = url.match(regExp);
+            return match ? match[5] : null;
+        }
+
+        // Função para reproduzir mídia a partir de um arquivo
+        function playMediaFromFile() {
+            const fileInput = document.getElementById('mediaFileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            const playerContainer = document.getElementById('mediaPlayer');
+            const fileUrl = URL.createObjectURL(file);
+            
+            // Verifica o tipo de arquivo
+            if (file.type.startsWith('video/')) {
+                playerContainer.innerHTML = `
+                    <video width="100%" height="100%" controls autoplay>
+                        <source src="${fileUrl}" type="${file.type}">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                `;
+                mediaPlayer = playerContainer.querySelector('video');
+            } else if (file.type.startsWith('audio/')) {
+                playerContainer.innerHTML = `
+                    <audio controls autoplay style="width: 100%; margin-top: 200px;">
+                        <source src="${fileUrl}" type="${file.type}">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                `;
+                mediaPlayer = playerContainer.querySelector('audio');
+            } else {
+                alert('Tipo de arquivo não suportado. Por favor, selecione um arquivo de vídeo ou áudio.');
+            }
+            
+            playButtonSound();
+        }
+
+        // Função para enviar mensagem para a IA que busca na Wikipedia e DuckDuckGo
+        async function sendAIMessage() {
+            const input = document.getElementById('aiMessageInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                const messagesContainer = document.getElementById('aiChatMessages');
+                
+                // Adiciona mensagem do usuário
+                const userMessageElement = document.createElement('div');
+                userMessageElement.className = 'message user';
+                userMessageElement.innerHTML = `
+                    <div class="message-info">
+                        <i data-lucide="user"></i>
+                        <span class="user-name">Você</span>
+                    </div>
+                    <div>${text}</div>
+                `;
+                messagesContainer.appendChild(userMessageElement);
+                
+                // Limpa o campo de entrada
+                input.value = '';
+                
+                // Rola para baixo
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // Adiciona indicador de digitação da IA
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'typing-indicator';
+                typingIndicator.innerHTML = `
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                messagesContainer.appendChild(typingIndicator);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                try {
+                    // Primeiro tenta buscar na Wikipedia
+                    const wikiResponse = await fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(text)}?redirects=true&origin=*`);
+                    const wikiData = await wikiResponse.json();
+
+                    if (wikiData.type === 'standard') {
+                        // Remove o indicador de digitação
+                        messagesContainer.removeChild(typingIndicator);
+                        
+                        // Adiciona resposta da IA com informações da Wikipedia
+                        const aiMessageElement = document.createElement('div');
+                        aiMessageElement.className = 'message ai';
+                        
+                        let messageContent = `
+                            <div class="message-info">
+                                <i data-lucide="bot"></i>
+                                <span class="user-name">Assistente</span>
+                            </div>
+                            <div>${wikiData.extract}</div>
+                        `;
+                        
+                        // Adiciona imagem da Wikipedia se existir
+                        if (wikiData.thumbnail) {
+                            messageContent += `
+                                <img src="${wikiData.thumbnail.source}" alt="${wikiData.title}" class="wiki-image" />
+                            `;
+                        }
+                        
+                        messageContent += `
+                            <button class="wiki-link-button" onclick="window.open('https://pt.wikipedia.org/wiki/${encodeURIComponent(text)}', '_blank')">
+                                <i data-lucide="external-link"></i> Acessar na Wikipedia
+                            </button>
+                        `;
+                        
+                        aiMessageElement.innerHTML = messageContent;
+                        messagesContainer.appendChild(aiMessageElement);
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        
+                        playNotificationSound();
+                        return;
+                    }
+
+                    // Se não encontrar na Wikipedia, busca no DuckDuckGo
+                    const duckDuckGoResponse = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(text)}&format=json&no_html=1&skip_disambig=1`);
+                    const duckData = await duckDuckGoResponse.json();
+
+                    if (duckData.Abstract) {
+                        // Remove o indicador de digitação
+                        messagesContainer.removeChild(typingIndicator);
+                        
+                        // Adiciona resposta da IA com informações do DuckDuckGo
+                        const aiMessageElement = document.createElement('div');
+                        aiMessageElement.className = 'message ai';
+                        aiMessageElement.innerHTML = `
+                            <div class="message-info">
+                                <i data-lucide="bot"></i>
+                                <span class="user-name">Assistente</span>
+                            </div>
+                            <div>${duckData.Abstract}</div>
+                            <button class="wiki-link-button" onclick="window.open('${duckData.AbstractURL}', '_blank')">
+                                <i data-lucide="external-link"></i> Mais informações
+                            </button>
+                        `;
+                        messagesContainer.appendChild(aiMessageElement);
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        
+                        playNotificationSound();
+                        return;
+                    }
+
+                    // Se não encontrar em nenhum dos dois, mostra mensagem padrão
+                    messagesContainer.removeChild(typingIndicator);
+                    
+                    const aiMessageElement = document.createElement('div');
+                    aiMessageElement.className = 'message ai';
+                    aiMessageElement.innerHTML = `
+                        <div class="message-info">
+                            <i data-lucide="bot"></i>
+                            <span class="user-name">Assistente</span>
+                        </div>
+                        <div>Desculpe, não encontrei informações sobre "${text}". Tente ser mais específico ou reformular sua pergunta.</div>
+                    `;
+                    messagesContainer.appendChild(aiMessageElement);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    
+                    playNotificationSound();
+                } catch (error) {
+                    console.error('Erro ao obter resposta da IA:', error);
+                    // Remove o indicador de digitação
+                    messagesContainer.removeChild(typingIndicator);
+                    
+                    // Adiciona mensagem de erro
+                    const errorMessageElement = document.createElement('div');
+                    errorMessageElement.className = 'message ai';
+                    errorMessageElement.innerHTML = `
+                        <div class="message-info">
+                            <i data-lucide="bot"></i>
+                            <span class="user-name">Assistente</span>
+                        </div>
+                        <div>Desculpe, ocorreu um erro ao processar sua mensagem. Por favor, tente novamente mais tarde.</div>
+                    `;
+                    messagesContainer.appendChild(errorMessageElement);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+                
+                playButtonSound();
+            }
+        }
+
         // Função para carregar a interface do chat
         function loadChatInterface() {
             const chatContainer = document.getElementById('chatContainer');
             
-            // Verifica se o usuário está logado
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    currentUser = user;
-                    renderChatUI(user);
-                    loadChatMessages();
-                } else {
-                    renderLoginUI();
-                }
-            });
+            if (!userName) {
+                renderLoginUI();
+            } else {
+                renderChatUI();
+                loadChatMessages();
+            }
         }
 
         // Função para renderizar a UI de login
@@ -1931,32 +2569,64 @@
             const chatContainer = document.getElementById('chatContainer');
             chatContainer.innerHTML = `
                 <div class="login-container">
+                    <button class="close-chat-btn" onclick="closeChatModal()">
+                        <i data-lucide="x"></i>
+                    </button>
                     <h5><i data-lucide="messages-square"></i> Chat Online</h5>
-                    <p>Faça login com sua conta do Google para participar do chat</p>
-                    <button class="login-button" onclick="signInWithGoogle()">
-                        <i data-lucide="log-in"></i> Entrar com Google
+                    <p>Digite seu nome para participar do chat</p>
+                    <input type="text" id="usernameInput" class="username-input" placeholder="Seu nome" />
+                    <button class="login-button" onclick="signInToChat()">
+                        <i data-lucide="log-in"></i> Entrar no Chat
                     </button>
                 </div>
             `;
             lucide.createIcons();
         }
 
+        // Função para fechar o modal do chat
+        function closeChatModal() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('chatOnlineModal'));
+            modal.hide();
+            playButtonSound();
+        }
+
+        // Função para entrar no chat
+        function signInToChat() {
+            const usernameInput = document.getElementById('usernameInput');
+            const name = usernameInput.value.trim();
+            
+            if (name) {
+                userName = name;
+                renderChatUI();
+                loadChatMessages();
+                playNotificationSound();
+            } else {
+                alert('Por favor, digite um nome válido');
+            }
+        }
+
         // Função para renderizar a UI do chat
-        function renderChatUI(user) {
+        function renderChatUI() {
             const chatContainer = document.getElementById('chatContainer');
             chatContainer.innerHTML = `
                 <div class="chat-header">
                     <div class="user-info">
-                        <img src="${user.photoURL}" alt="${user.displayName}" class="user-avatar" />
-                        <span>${user.displayName}</span>
+                        <i data-lucide="user"></i>
+                        <span>${userName}</span>
                     </div>
-                    <button class="sign-out-button" onclick="signOut()">
+                    <button class="sign-out-button" onclick="signOutFromChat()">
                         <i data-lucide="log-out"></i> Sair
                     </button>
                 </div>
                 <div class="chat-messages" id="chatMessages"></div>
                 <div class="chat-input-container">
                     <input type="text" class="chat-input" id="messageInput" placeholder="Digite sua mensagem..." />
+                    <div class="file-upload-container">
+                        <label for="fileUpload" class="file-upload-label">
+                            <i data-lucide="paperclip"></i>
+                        </label>
+                        <input type="file" id="fileUpload" class="file-upload-input" onchange="handleFileUpload()" />
+                    </div>
                     <button class="send-button" onclick="sendMessage()">
                         <i data-lucide="send"></i>
                     </button>
@@ -1972,40 +2642,161 @@
             });
         }
 
+        // Função para lidar com upload de arquivos
+        function handleFileUpload() {
+            const fileInput = document.getElementById('fileUpload');
+            const file = fileInput.files[0];
+            
+            if (file) {
+                // Aqui você pode implementar o upload do arquivo para um serviço de armazenamento
+                // Por simplicidade, vamos apenas enviar o nome do arquivo
+                const message = {
+                    text: `[Arquivo enviado: ${file.name}]`,
+                    name: userName,
+                    timestamp: Date.now(),
+                    isFile: true,
+                    fileName: file.name
+                };
+                
+                // Salva a mensagem no cache local
+                saveMessageToCache(message);
+                
+                // Envia a mensagem para outros clientes via BroadcastChannel
+                chatChannel.postMessage({
+                    type: 'new_message',
+                    message: message
+                });
+                
+                // Limpa o campo de arquivo
+                fileInput.value = '';
+            }
+        }
+
         // Função para carregar mensagens do chat
         function loadChatMessages() {
-            const messagesRef = database.ref('messages').limitToLast(50);
             const chatMessages = document.getElementById('chatMessages');
             
-            messagesRef.on('child_added', snapshot => {
-                const message = snapshot.val();
+            // Primeiro carrega do cache local
+            const cachedMessages = JSON.parse(localStorage.getItem('chatMessagesCache')) || [];
+            messagesCache = cachedMessages;
+            
+            // Exibe as mensagens do cache
+            chatMessages.innerHTML = '';
+            messagesCache.forEach(message => {
                 displayMessage(message);
-                
-                // Rola para a última mensagem
-                chatMessages.scrollTop = chatMessages.scrollHeight;
             });
+            
+            // Rola para a última mensagem
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Configura o listener para novas mensagens via BroadcastChannel
+            chatChannel.onmessage = (event) => {
+                if (event.data.type === 'new_message') {
+                    const message = event.data.message;
+                    
+                    // Verifica se a mensagem já não está no cache
+                    if (!messagesCache.some(m => m.timestamp === message.timestamp && m.name === message.name)) {
+                        messagesCache.push(message);
+                        if (messagesCache.length > 100) {
+                            messagesCache.shift();
+                        }
+                        
+                        // Salva no cache local
+                        localStorage.setItem('chatMessagesCache', JSON.stringify(messagesCache));
+                        
+                        displayMessage(message);
+                        
+                        // Rola para a última mensagem
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        
+                        // Toca som de notificação se não for a própria mensagem
+                        if (message.name !== userName) {
+                            playNotificationSound();
+                        }
+                    }
+                }
+                
+                // Sincronização de cache entre clientes
+                if (event.data.type === 'sync_request' && event.data.sender !== userName) {
+                    // Responde com o cache atual
+                    chatChannel.postMessage({
+                        type: 'sync_response',
+                        sender: userName,
+                        messages: messagesCache
+                    });
+                }
+                
+                if (event.data.type === 'sync_response' && event.data.sender !== userName) {
+                    // Recebe o cache de outro cliente e mescla com o local
+                    const remoteMessages = event.data.messages;
+                    const newMessages = remoteMessages.filter(remoteMsg => 
+                        !messagesCache.some(localMsg => 
+                            localMsg.timestamp === remoteMsg.timestamp && localMsg.name === remoteMsg.name
+                        )
+                    );
+                    
+                    if (newMessages.length > 0) {
+                        messagesCache = [...messagesCache, ...newMessages]
+                            .sort((a, b) => a.timestamp - b.timestamp)
+                            .slice(-100); // Mantém apenas as 100 mais recentes
+                        
+                        // Atualiza o cache local
+                        localStorage.setItem('chatMessagesCache', JSON.stringify(messagesCache));
+                        
+                        // Atualiza a exibição
+                        chatMessages.innerHTML = '';
+                        messagesCache.forEach(message => {
+                            displayMessage(message);
+                        });
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }
+                }
+            };
+            
+            // Solicita sincronização de outros clientes
+            chatChannel.postMessage({
+                type: 'sync_request',
+                sender: userName
+            });
+        }
+
+        // Função para salvar mensagem no cache local
+        function saveMessageToCache(message) {
+            messagesCache.push(message);
+            if (messagesCache.length > 100) {
+                messagesCache.shift();
+            }
+            localStorage.setItem('chatMessagesCache', JSON.stringify(messagesCache));
         }
 
         // Função para exibir uma mensagem no chat
         function displayMessage(message) {
             const chatMessages = document.getElementById('chatMessages');
-            const isCurrentUser = message.userId === currentUser.uid;
+            const isCurrentUser = message.name === userName;
+            const isAI = message.name === "Assistente";
             
             const messageTime = new Date(message.timestamp);
             const timeStr = messageTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
             
             const messageElement = document.createElement('div');
-            messageElement.className = `message ${isCurrentUser ? 'user' : 'other'}`;
+            messageElement.className = `message ${isCurrentUser ? 'user' : isAI ? 'ai' : 'other'}`;
+            
+            let messageContent = message.text;
+            if (message.isFile) {
+                messageContent = `<i data-lucide="file"></i> ${message.text}`;
+            }
+            
             messageElement.innerHTML = `
                 <div class="message-info">
-                    ${!isCurrentUser ? `<img src="${message.photoURL}" alt="${message.name}" class="user-avatar" />` : ''}
+                    ${!isCurrentUser ? `<i data-lucide="${isAI ? 'bot' : 'user'}"></i>` : ''}
                     <span class="user-name">${isCurrentUser ? 'Você' : message.name}</span>
                     <span class="message-time">${timeStr}</span>
                 </div>
-                <div>${message.text}</div>
+                <div>${messageContent}</div>
             `;
             
             chatMessages.appendChild(messageElement);
+            lucide.createIcons();
         }
 
         // Função para enviar mensagem
@@ -2013,57 +2804,53 @@
             const input = document.getElementById('messageInput');
             const text = input.value.trim();
             
-            if (text && currentUser) {
+            if (text && userName) {
                 const message = {
                     text: text,
-                    name: currentUser.displayName,
-                    userId: currentUser.uid,
-                    photoURL: currentUser.photoURL,
+                    name: userName,
                     timestamp: Date.now()
                 };
                 
-                // Salva a mensagem no Firebase
-                database.ref('messages').push(message);
+                // Salva a mensagem no cache local
+                saveMessageToCache(message);
+                
+                // Envia a mensagem para outros clientes via BroadcastChannel
+                chatChannel.postMessage({
+                    type: 'new_message',
+                    message: message
+                });
+                
+                // Exibe a mensagem localmente
+                displayMessage(message);
                 
                 // Limpa o campo de entrada
                 input.value = '';
+                
+                // Rola para a última mensagem
+                document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+                
+                // Toca som de botão
+                playButtonSound();
             }
         }
 
-        // Função para login com Google
-        function signInWithGoogle() {
-            auth.signInWithPopup(provider)
-                .then(result => {
-                    currentUser = result.user;
-                    renderChatUI(currentUser);
-                    loadChatMessages();
-                })
-                .catch(error => {
-                    console.error('Erro no login:', error);
-                    alert('Erro ao fazer login. Por favor, tente novamente.');
-                });
-        }
-
-        // Função para logout
-        function signOut() {
-            auth.signOut()
-                .then(() => {
-                    currentUser = null;
-                    renderLoginUI();
-                })
-                .catch(error => {
-                    console.error('Erro no logout:', error);
-                });
+        // Função para sair do chat
+        function signOutFromChat() {
+            userName = null;
+            renderLoginUI();
+            playButtonSound();
         }
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            playButtonSound();
         }
 
         function scrollToSection(sectionId) {
             const element = document.getElementById(sectionId);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
+                playButtonSound();
             }
         }
 
@@ -2084,7 +2871,9 @@
             const element = document.getElementById(elementId);
             if (!document.fullscreenElement) {
                 if (element.requestFullscreen) {
-                    element.requestFullscreen();
+                    element.requestFullscreen().catch(err => {
+                        console.error(`Erro ao tentar entrar em tela cheia: ${err.message}`);
+                    });
                 } else if (element.webkitRequestFullscreen) {
                     element.webkitRequestFullscreen();
                 } else if (element.msRequestFullscreen) {
@@ -2099,6 +2888,7 @@
                     document.msExitFullscreen();
                 }
             }
+            playButtonSound();
         }
 
         function updateDateTime() {
@@ -2118,6 +2908,8 @@
             const newTheme = current === "dark" ? "light" : "dark";
             html.setAttribute("data-theme", newTheme);
             
+            updateThemeButtonText();
+            
             if (currentEmbedType === "discord" || currentEmbedType === "linkedin") {
                 if (currentEmbedType === "discord") {
                     changeChannelToDiscord();
@@ -2125,11 +2917,15 @@
                     changeChannelToLinkedIn();
                 }
             }
+            
+            saveSettings();
+            playButtonSound();
         }
 
         function updateBrightness() {
             const value = document.getElementById("brightnessRange").value;
             document.body.style.filter = `brightness(${value}%)`;
+            saveSettings();
         }
 
         function updateVolume() {
@@ -2138,6 +2934,52 @@
             if (iframe) {
                 iframe.contentWindow.postMessage({ volume: value }, "*");
             }
+            saveSettings();
+        }
+
+        // Função para tocar som de botão
+        function playButtonSound() {
+            if (soundEffectsEnabled) {
+                const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
+                sound.volume = document.getElementById("volumeRange").value / 100;
+                sound.play().catch(e => console.log("Não foi possível tocar o som: ", e));
+            }
+        }
+
+        // Função para tocar som de notificação
+        function playNotificationSound() {
+            if (soundEffectsEnabled) {
+                const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3');
+                sound.volume = document.getElementById("volumeRange").value / 100;
+                sound.play().catch(e => console.log("Não foi possível tocar o som: ", e));
+            }
+        }
+
+        // Função para tocar som de página
+        function playPageSound() {
+            if (soundEffectsEnabled) {
+                const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-modem-chat-connection-2964.mp3');
+                sound.volume = document.getElementById("volumeRange").value / 100;
+                sound.play().catch(e => console.log("Não foi possível tocar o som: ", e));
+            }
+        }
+
+        // Função para ativar/desativar efeitos sonoros
+        function toggleSoundEffects() {
+            soundEffectsEnabled = !soundEffectsEnabled;
+            const soundButton = document.getElementById('soundButton');
+            
+            if (soundEffectsEnabled) {
+                soundButton.innerHTML = '<i data-lucide="volume-2"></i> Desativar Efeitos Sonoros';
+                soundButton.classList.add('active');
+                playButtonSound();
+            } else {
+                soundButton.innerHTML = '<i data-lucide="volume-x"></i> Ativar Efeitos Sonoros';
+                soundButton.classList.remove('active');
+            }
+            
+            lucide.createIcons();
+            saveSettings();
         }
 
         function shareSite() {
@@ -2150,6 +2992,7 @@
             } else {
                 alert("O compartilhamento não é suportado neste navegador.");
             }
+            playButtonSound();
         }
 
         function startScreenCast() {
@@ -2158,6 +3001,7 @@
             } else {
                 alert("Transmissão de tela não é suportada neste navegador.");
             }
+            playButtonSound();
         }
 
         function blockAds() {
@@ -2171,22 +3015,55 @@
             } else {
                 window.open("https://adblockplus.org/", "_blank");
             }
+            playButtonSound();
         }
 
         // Função para abrir o buscador de torrents
         function openTorrentSearch() {
+            playButtonSound();
             const modal = new bootstrap.Modal(document.getElementById('torrentSearchModal'));
             modal.show();
         }
 
         // Função para abrir o buscador do Web Archive
         function openArchiveSearch() {
+            playButtonSound();
             const modal = new bootstrap.Modal(document.getElementById('archiveSearchModal'));
             modal.show();
+        }
+        
+        // Função para abrir o buscador no Google Drive
+        function openDriveSearch() {
+            playButtonSound();
+            const modal = new bootstrap.Modal(document.getElementById('driveSearchModal'));
+            modal.show();
+        }
+
+        // Função para buscar no Google Drive
+        function searchDrive() {
+            playButtonSound();
+            const query = document.getElementById('driveSearchInput').value.trim();
+            if (!query) return;
+            
+            const resultsContainer = document.getElementById('driveSearchResults');
+            resultsContainer.innerHTML = '<p>Buscando no Google Drive... <i data-lucide="loader" class="animate-spin"></i></p>';
+            lucide.createIcons();
+            
+            // Redireciona para o Google com a pesquisa específica no Drive
+            setTimeout(() => {
+                const driveUrl = `https://www.google.com/search?q=site%3Adrive.google.com+${encodeURIComponent(query)}`;
+                resultsContainer.innerHTML = `
+                    <div class="search-modal-result-item" onclick="window.open('${driveUrl}', '_blank')">
+                        <div class="search-modal-result-title">Pesquisar "${query}" no Google Drive</div>
+                        <div class="search-modal-result-details">Clique para abrir os resultados de busca no Google Drive</div>
+                    </div>
+                `;
+            }, 500);
         }
 
         // Função para abrir o buscador de serviços
         function openServiceSearch(service) {
+            playButtonSound();
             let modalId;
             switch(service) {
                 case 'youtube-music':
@@ -2207,6 +3084,9 @@
                 case 'pluto':
                     modalId = 'plutoSearchModal';
                     break;
+                case 'rede-canais':
+                    modalId = 'redeCanaisSearchModal';
+                    break;
                 default:
                     return;
             }
@@ -2214,8 +3094,20 @@
             modal.show();
         }
 
+        // Função para copiar texto para a área de transferência
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Link copiado para a área de transferência!");
+            }).catch(err => {
+                console.error('Erro ao copiar texto: ', err);
+                alert("Erro ao copiar o link. Tente manualmente.");
+            });
+            playButtonSound();
+        }
+
         // Função para buscar torrents
         function searchTorrents() {
+            playButtonSound();
             const query = document.getElementById('torrentSearchInput').value.trim();
             if (!query) return;
             
@@ -2223,38 +3115,21 @@
             resultsContainer.innerHTML = '<p>Buscando torrents... <i data-lucide="loader" class="animate-spin"></i></p>';
             lucide.createIcons();
             
-            // Simulação de busca
+            // Redireciona para o The Pirate Bay com a pesquisa
             setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `[BR] ${query} - Filme Completo HD 1080p Dublado`,
-                        size: "1.5 GB",
-                        seeds: 452,
-                        leechers: 32,
-                        link: "https://thepiratebay.org/description.php?id=12345678"
-                    },
-                    {
-                        name: `[PT-BR] ${query} - Temporada Completa 720p`,
-                        size: "8.2 GB",
-                        seeds: 321,
-                        leechers: 45,
-                        link: "https://thepiratebay.org/description.php?id=87654321"
-                    },
-                    {
-                        name: `${query} - Álbum Completo [MP3 320kbps]`,
-                        size: "120 MB",
-                        seeds: 87,
-                        leechers: 12,
-                        link: "https://thepiratebay.org/description.php?id=19283746"
-                    }
-                ];
-                
-                displaySearchResults(mockResults, 'torrentSearchResults');
-            }, 1500);
+                const pirateBayUrl = `https://thepiratebay.org/search/${encodeURIComponent(query)}/0/99/0`;
+                resultsContainer.innerHTML = `
+                    <div class="search-modal-result-item" onclick="window.open('${pirateBayUrl}', '_blank')">
+                        <div class="search-modal-result-title">Pesquisar "${query}" no The Pirate Bay</div>
+                        <div class="search-modal-result-details">Clique para abrir os resultados de torrents</div>
+                    </div>
+                `;
+            }, 500);
         }
 
         // Função para buscar no Web Archive
         function searchArchive() {
+            playButtonSound();
             const query = document.getElementById('archiveSearchInput').value.trim();
             if (!query) return;
             
@@ -2262,344 +3137,33 @@
             resultsContainer.innerHTML = '<p>Buscando no Web Archive... <i data-lucide="loader" class="animate-spin"></i></p>';
             lucide.createIcons();
             
-            // Simulação de busca
+            // Redireciona para o Web Archive com a pesquisa
             setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `${query} - Site Arquivado (2023)`,
-                        date: "15/03/2023",
-                        link: `https://web.archive.org/web/20230315000000/${query}`
-                    },
-                    {
-                        name: `${query} - Site Arquivado (2022)`,
-                        date: "10/07/2022",
-                        link: `https://web.archive.org/web/20220710000000/${query}`
-                    },
-                    {
-                        name: `${query} - Site Arquivado (2021)`,
-                        date: "05/12/2021",
-                        link: `https://web.archive.org/web/20211205000000/${query}`
-                    }
-                ];
-                
-                displayArchiveResults(mockResults);
-            }, 1500);
-        }
-
-        // Função para exibir resultados do Web Archive
-        function displayArchiveResults(results) {
-            const resultsContainer = document.getElementById('archiveSearchResults');
-            
-            if (results.length === 0) {
-                resultsContainer.innerHTML = '<div class="search-modal-result-item">Nenhum resultado encontrado no Web Archive. Tente outros termos de busca.</div>';
-                return;
-            }
-            
-            let html = '';
-            results.forEach(result => {
-                html += `
-                    <div class="search-modal-result-item" onclick="window.open('${result.link}', '_blank')">
-                        <div class="search-modal-result-title">${result.name}</div>
-                        <div class="search-modal-result-details">
-                            <span><i data-lucide="calendar"></i> ${result.date}</span>
-                        </div>
+                const archiveUrl = `https://web.archive.org/web/*/${encodeURIComponent(query)}`;
+                resultsContainer.innerHTML = `
+                    <div class="search-modal-result-item" onclick="window.open('${archiveUrl}', '_blank')">
+                        <div class="search-modal-result-title">Pesquisar "${query}" no Web Archive</div>
+                        <div class="search-modal-result-details">Clique para abrir os resultados arquivados</div>
                     </div>
                 `;
-            });
-            
-            resultsContainer.innerHTML = html;
-            lucide.createIcons();
-        }
-
-        // Função para buscar no YouTube Music
-        function searchYouTubeMusic() {
-            const query = document.getElementById('youtubeMusicSearchInput').value.trim();
-            if (!query) return;
-            
-            const resultsContainer = document.getElementById('youtubeMusicSearchResults');
-            resultsContainer.innerHTML = '<p>Buscando no YouTube Music... <i data-lucide="loader" class="animate-spin"></i></p>';
-            lucide.createIcons();
-            
-            // Simulação de busca
-            setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `${query} - Música Oficial`,
-                        artist: "Artista Principal",
-                        duration: "3:45",
-                        link: `https://music.youtube.com/search?q=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Playlist Completa`,
-                        artist: "Vários Artistas",
-                        duration: "1h 23m",
-                        link: `https://music.youtube.com/search?q=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Álbum Completo`,
-                        artist: "Artista Principal",
-                        duration: "45:12",
-                        link: `https://music.youtube.com/search?q=${encodeURIComponent(query)}`
-                    }
-                ];
-                
-                displayServiceResults(mockResults, 'youtubeMusicSearchResults', 'YouTube Music');
-            }, 1500);
-        }
-
-        // Função para buscar no SoundCloud
-        function searchSoundCloud() {
-            const query = document.getElementById('soundcloudSearchInput').value.trim();
-            if (!query) return;
-            
-            const resultsContainer = document.getElementById('soundcloudSearchResults');
-            resultsContainer.innerHTML = '<p>Buscando no SoundCloud... <i data-lucide="loader" class="animate-spin"></i></p>';
-            lucide.createIcons();
-            
-            // Simulação de busca
-            setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `${query} - Track by Artist`,
-                        artist: "Artist Name",
-                        duration: "4:12",
-                        link: `https://soundcloud.com/search?q=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Playlist`,
-                        artist: "Various Artists",
-                        duration: "1h 15m",
-                        link: `https://soundcloud.com/search?q=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Podcast Episode`,
-                        artist: "Podcast Host",
-                        duration: "32:45",
-                        link: `https://soundcloud.com/search?q=${encodeURIComponent(query)}`
-                    }
-                ];
-                
-                displayServiceResults(mockResults, 'soundcloudSearchResults', 'SoundCloud');
-            }, 1500);
-        }
-
-        // Função para buscar na Twitch
-        function searchTwitch() {
-            const query = document.getElementById('twitchSearchInput').value.trim();
-            if (!query) return;
-            
-            const resultsContainer = document.getElementById('twitchSearchResults');
-            resultsContainer.innerHTML = '<p>Buscando na Twitch... <i data-lucide="loader" class="animate-spin"></i></p>';
-            lucide.createIcons();
-            
-            // Simulação de busca
-            setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `${query} - Live Stream`,
-                        streamer: "StreamerName",
-                        viewers: "1.2K",
-                        link: `https://www.twitch.tv/search?term=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Channel`,
-                        streamer: "ChannelName",
-                        viewers: "3.4K",
-                        link: `https://www.twitch.tv/search?term=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - VOD`,
-                        streamer: "StreamerName",
-                        duration: "2h 15m",
-                        link: `https://www.twitch.tv/search?term=${encodeURIComponent(query)}`
-                    }
-                ];
-                
-                displayServiceResults(mockResults, 'twitchSearchResults', 'Twitch');
-            }, 1500);
-        }
-
-        // Função para buscar no Spotify
-        function searchSpotify() {
-            const query = document.getElementById('spotifySearchInput').value.trim();
-            if (!query) return;
-            
-            const resultsContainer = document.getElementById('spotifySearchResults');
-            resultsContainer.innerHTML = '<p>Buscando no Spotify... <i data-lucide="loader" class="animate-spin"></i></p>';
-            lucide.createIcons();
-            
-            // Simulação de busca
-            setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `${query} - Música`,
-                        artist: "Artista",
-                        duration: "3:45",
-                        link: `https://open.spotify.com/search/${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Playlist`,
-                        artist: "Vários Artistas",
-                        duration: "1h 15m",
-                        link: `https://open.spotify.com/search/${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Álbum`,
-                        artist: "Artista",
-                        duration: "45:12",
-                        link: `https://open.spotify.com/search/${encodeURIComponent(query)}`
-                    }
-                ];
-                
-                displayServiceResults(mockResults, 'spotifySearchResults', 'Spotify');
-            }, 1500);
-        }
-
-        // Função para buscar no Deezer
-        function searchDeezer() {
-            const query = document.getElementById('deezerSearchInput').value.trim();
-            if (!query) return;
-            
-            const resultsContainer = document.getElementById('deezerSearchResults');
-            resultsContainer.innerHTML = '<p>Buscando no Deezer... <i data-lucide="loader" class="animate-spin"></i></p>';
-            lucide.createIcons();
-            
-            // Simulação de busca
-            setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `${query} - Música`,
-                        artist: "Artista",
-                        duration: "3:45",
-                        link: `https://www.deezer.com/search/${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Playlist`,
-                        artist: "Vários Artistas",
-                        duration: "1h 15m",
-                        link: `https://www.deezer.com/search/${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Álbum`,
-                        artist: "Artista",
-                        duration: "45:12",
-                        link: `https://www.deezer.com/search/${encodeURIComponent(query)}`
-                    }
-                ];
-                
-                displayServiceResults(mockResults, 'deezerSearchResults', 'Deezer');
-            }, 1500);
-        }
-
-        // Função para buscar na Pluto TV
-        function searchPluto() {
-            const query = document.getElementById('plutoSearchInput').value.trim();
-            if (!query) return;
-            
-            const resultsContainer = document.getElementById('plutoSearchResults');
-            resultsContainer.innerHTML = '<p>Buscando na Pluto TV... <i data-lucide="loader" class="animate-spin"></i></p>';
-            lucide.createIcons();
-            
-            // Simulação de busca
-            setTimeout(() => {
-                const mockResults = [
-                    {
-                        name: `${query} - Canal`,
-                        category: "Entretenimento",
-                        link: `https://pluto.tv/pt/search?q=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Programa`,
-                        category: "Séries",
-                        link: `https://pluto.tv/pt/search?q=${encodeURIComponent(query)}`
-                    },
-                    {
-                        name: `${query} - Filme`,
-                        category: "Filmes",
-                        link: `https://pluto.tv/pt/search?q=${encodeURIComponent(query)}`
-                    }
-                ];
-                
-                displayServiceResults(mockResults, 'plutoSearchResults', 'Pluto TV');
-            }, 1500);
-        }
-
-        // Função para exibir resultados de serviços
-        function displayServiceResults(results, containerId, serviceName) {
-            const resultsContainer = document.getElementById(containerId);
-            
-            if (results.length === 0) {
-                resultsContainer.innerHTML = `<div class="search-modal-result-item">Nenhum resultado encontrado no ${serviceName}. Tente outros termos de busca.</div>`;
-                return;
-            }
-            
-            let html = '';
-            results.forEach(result => {
-                let details = '';
-                if (serviceName === 'YouTube Music' || serviceName === 'SoundCloud' || serviceName === 'Spotify' || serviceName === 'Deezer') {
-                    details = `<span><i data-lucide="user"></i> ${result.artist}</span> | <span><i data-lucide="clock"></i> ${result.duration}</span>`;
-                } else if (serviceName === 'Twitch') {
-                    details = `<span><i data-lucide="user"></i> ${result.streamer}</span> | <span><i data-lucide="eye"></i> ${result.viewers || result.duration}</span>`;
-                } else if (serviceName === 'Pluto TV') {
-                    details = `<span><i data-lucide="list"></i> ${result.category}</span>`;
-                }
-                
-                html += `
-                    <div class="search-modal-result-item" onclick="window.open('${result.link}', '_blank')">
-                        <div class="search-modal-result-title">${result.name}</div>
-                        <div class="search-modal-result-details">
-                            ${details}
-                        </div>
-                    </div>
-                `;
-            });
-            
-            resultsContainer.innerHTML = html;
-            lucide.createIcons();
-        }
-
-        // Função para exibir resultados de busca
-        function displaySearchResults(results, containerId) {
-            const resultsContainer = document.getElementById(containerId);
-            
-            if (results.length === 0) {
-                resultsContainer.innerHTML = '<div class="search-modal-result-item">Nenhum resultado encontrado. Tente outros termos de busca.</div>';
-                return;
-            }
-            
-            let html = '';
-            results.forEach(result => {
-                html += `
-                    <div class="search-modal-result-item" onclick="window.open('${result.link}', '_blank')">
-                        <div class="search-modal-result-title">${result.name}</div>
-                        <div class="search-modal-result-details">
-                            <span><i data-lucide="hard-drive"></i> ${result.size}</span> | 
-                            <span><i data-lucide="arrow-up"></i> ${result.seeds}</span> | 
-                            <span><i data-lucide="arrow-down"></i> ${result.leechers}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            resultsContainer.innerHTML = html;
-            lucide.createIcons();
+            }, 500);
         }
 
         // Banco de dados de pesquisa
         const searchDatabase = [
             // Canais de TV
-            { name: "TV Cultura", type: "tv", action: () => loadTVCultura() },
+            { name: "TV Cultura", type: "tv", action: () => window.open('https://cultura.uol.com.br/aovivo/', '_blank') },
             { name: "Globo", type: "tv", action: () => window.open('https://globoplay.globo.com/', '_blank') },
             { name: "Record", type: "tv", action: () => window.open('https://assine.playplus.com/', '_blank') },
-            { name: "TV Aparecida", type: "tv", action: () => loadTVAparecida() },
-            { name: "SBT", type: "tv", action: () => changeChannel('https://mais.sbt.com.br/') },
-            { name: "Band", type: "tv", action: () => changeChannel('https://www.band.uol.com.br/ao-vivo') },
-            { name: "RedeTV!", type: "tv", action: () => changeChannel('https://www.redetv.com.br/ao-vivo') },
-            { name: "TV Brasil", type: "tv", action: () => changeChannel('https://tvbrasil.ebc.com.br/ao-vivo') },
-            { name: "Record News", type: "tv", action: () => changeChannel('https://recordnews.r7.com/ao-vivo') },
-            { name: "Rede Vida", type: "tv", action: () => changeChannel('https://www.redevida.com.br/ao-vivo') },
-            { name: "Jovem Pan", type: "tv", action: () => changeChannel('https://jovempan.com.br/ao-vivo') },
-            { name: "G1", type: "tv", action: () => changeChannel('https://g1.globo.com/') },
+            { name: "TV Aparecida", type: "tv", action: () => window.open('https://www.a12.com/tvaparecida/ao-vivo', '_blank') },
+            { name: "SBT", type: "tv", action: () => window.open('https://mais.sbt.com.br/', '_blank') },
+            { name: "Band", type: "tv", action: () => window.open('https://www.band.uol.com.br/ao-vivo', '_blank') },
+            { name: "RedeTV!", type: "tv", action: () => window.open('https://www.redetv.com.br/ao-vivo', '_blank') },
+            { name: "TV Brasil", type: "tv", action: () => window.open('https://tvbrasil.ebc.com.br/ao-vivo', '_blank') },
+            { name: "Record News", type: "tv", action: () => window.open('https://recordnews.r7.com/ao-vivo', '_blank') },
+            { name: "Rede Vida", type: "tv", action: () => window.open('https://www.redevida.com.br/ao-vivo', '_blank') },
+            { name: "Jovem Pan", type: "tv", action: () => window.open('https://jovempan.com.br/ao-vivo', '_blank') },
+            { name: "G1", type: "tv", action: () => window.open('https://g1.globo.com/', '_blank') },
             
             // Canais de Rádio
             { name: "Jovem Pan Rádio", type: "radio", action: () => changeChannel('https://jovempan.com.br/aovivo') },
@@ -2612,7 +3176,7 @@
             // Streaming
             { name: "Lofi Hip Hop", type: "streaming", action: () => changeChannelToLofi() },
             { name: "Chill Zone", type: "streaming", action: () => changeChannelToChill() },
-            { name: "CazéTV", type: "streaming", action: () => loadCazeTV() },
+            { name: "CazéTV", type: "streaming", action: () => window.open('https://www.cazetv.com.br/', '_blank') },
             { name: "Loading TV", type: "streaming", action: () => changeChannel('https://www.olhosnatv.com.br/2022/02/loading-tv.html?m=1') },
             { name: "Retro Cartoon", type: "streaming", action: () => changeChannel('https://www.olhosnatv.com.br/2018/05/retro-cartoon-desenhos-classicos.html?m=1') },
             { name: "Pluto TV", type: "streaming", action: () => openServiceSearch('pluto') },
@@ -2625,21 +3189,24 @@
             
             // Jogos
             { name: "Marvel vs Capcom", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/9123-marvel-vs-capcom-clash-of-super-heroes-980123-usa.html') },
-            { name: "The King of Fighters 2002", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/10386-the-king-of-fighters-2002-magic-plus-bootleg-bootleg.html') },
-            { name: "Streets of Rage 2", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/28481-streets-of-rage-2-usa.html') },
-            { name: "Hyper Street Fighter 2", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/8809-hyper-street-fighter-2%3A-the-anniversary-edition-040202-usa.html') },
-            { name: "Mortal Kombat Trilogy", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/40808-mortal-kombat-trilogy.html') },
             { name: "Tekken 3", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/43501-tekken-3-world-tet2-ver-e1.html') },
+            { name: "Streets of Rage 2", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/28481-streets-of-rage-2-usa.html') },
+            { name: "Capcom vs SNK", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/41644-capcom-vs-snk-millennium-fight-2000.html') },
+            { name: "Street Fighter III", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/10062-street-fighter-iii-3rd-strike%3A-fight-for-the-future-usa-990608.html') },
+            { name: "The King of Fighters 2002", type: "game", action: () => loadArcadeGame('https://www.retrogames.cc/embed/10386-the-king-of-fighters-2002-magic-plus-bootleg-bootleg.html') },
             
             // Ações
             { name: "Discord", type: "action", action: () => changeChannelToDiscord() },
             { name: "LinkedIn", type: "action", action: () => changeChannelToLinkedIn() },
             { name: "Chat Online", type: "action", action: () => openChatOnline() },
+            { name: "Chat com IA", type: "action", action: () => openAIChat() },
             { name: "Criar Torneios", type: "action", action: () => changeChannelToTournament() },
             { name: "Transmitir Tela", type: "action", action: () => startScreenCast() },
             { name: "Compartilhar Site", type: "action", action: () => shareSite() },
             { name: "Buscar Torrents", type: "action", action: () => openTorrentSearch() },
-            { name: "Web Archive", type: "action", action: () => openArchiveSearch() }
+            { name: "Web Archive", type: "action", action: () => openArchiveSearch() },
+            { name: "Pesquisar no Drive", type: "action", action: () => openDriveSearch() },
+            { name: "Player de Mídia", type: "action", action: () => openMediaPlayer() }
         ];
 
         // Função para busca global
@@ -2695,6 +3262,7 @@
         function executeSearchAction(itemName) {
             const item = searchDatabase.find(i => i.name === itemName);
             if (item) {
+                playButtonSound();
                 item.action();
                 document.getElementById('searchResults').style.display = 'none';
                 document.getElementById('globalSearchInput').value = '';
@@ -2708,12 +3276,45 @@
             }
         });
 
+        // Formulário de contato
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            
+            if (name && email && message) {
+                const subject = `Mensagem de ${name} via Danny Network`;
+                const body = `Nome: ${name}\nEmail: ${email}\n\nMensagem:\n${message}`;
+                
+                window.location.href = `mailto:dannybarbosadelima@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Fecha o modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
+                modal.hide();
+                
+                playButtonSound();
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        });
+
         // Inicializa os ícones
         lucide.createIcons();
         
-        // Marca o primeiro canal como ativo por padrão
+        // Carrega configurações ao iniciar
         document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            
+            // Marca o primeiro canal como ativo por padrão
             document.querySelector('.channel-button').classList.add('active');
+            
+            // Carrega mensagens do cache do localStorage se existirem
+            const cachedMessages = localStorage.getItem('chatMessagesCache');
+            if (cachedMessages) {
+                messagesCache = JSON.parse(cachedMessages);
+            }
         });
     </script>
 </body>
